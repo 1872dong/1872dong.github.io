@@ -1027,6 +1027,7 @@ async function fbApplyRemote(remote){
   const mergedStr = JSON.stringify(merged);
   if(mergedStr !== JSON.stringify(localBefore)) await applyStore(merged);    // 내 화면 갱신
   if(mergedStr !== JSON.stringify(fbRemoteCache)) await fbWrite(merged);     // 원격도 병합본으로 맞춤(둘이 같아지면 멈춤)
+  if(!applyingRemote && dedupeToday()){ await saveToday(); render(); }        // 기기 간 중복 정리
 }
 
 async function fbWrite(storeObj){
@@ -1175,6 +1176,38 @@ async function saveToday(){
   await safeSet('day:'+todayStr, state.today);
   await touchMeta();
 }
+
+/* ---------- 중복 자동 삭제 ----------
+   해야 할 일(미완료) 중 내용+분류가 같은 항목이 둘 이상이면 하나만 남긴다.
+   진행률이 높은 것 우선, 같으면 먼저 만든 것 유지. 완료 항목은 건드리지 않음.
+   삭제분은 saveToday가 자동으로 tombstone 처리 → 다른 기기에서도 지워지고 되살아나지 않음. */
+function normTaskText(s){ return String(s||'').trim().replace(/\s+/g,' ').toLowerCase(); }
+function dedupeToday(){
+  const tasks = state.today.tasks || [];
+  const seen = {};
+  const removeIds = new Set();
+  tasks.forEach(t=>{
+    if(t.done) return;                        // 완료 항목은 제외
+    const key = normTaskText(t.text) + '|' + taskCat(t);
+    if(!normTaskText(t.text)) return;         // 빈 내용은 무시
+    const kept = seen[key];
+    if(!kept){ seen[key] = t; return; }
+    const keptP = computeProgress(kept), curP = computeProgress(t);
+    let loser;
+    if(curP > keptP){ loser = kept; seen[key] = t; }
+    else if(curP < keptP){ loser = t; }
+    else {
+      const keptC = kept.createdAt||0, curC = t.createdAt||0;
+      if(curC && keptC && curC < keptC){ loser = kept; seen[key] = t; }
+      else loser = t;
+    }
+    removeIds.add(loser.id);
+  });
+  if(!removeIds.size) return false;
+  state.today.tasks = tasks.filter(t=> !removeIds.has(t.id));
+  return true;
+}
+async function dedupeAndSave(){ if(dedupeToday()){ await saveToday(); return true; } return false; }
 
 let hourlySaveTimer = null;
 async function saveHourlySlot(time, text, announce){
@@ -1432,6 +1465,7 @@ async function addTask(text, startDate, dueDate, alarmTime, category, note){
   if(!text) return;
   state.today.tasks.push({
     id:uid(), text, done:false, carried:false,
+    createdAt: Date.now(),
     category: (category && CAT_LABEL[category]) ? category : 'todo',
     startDate: startDate || null,
     dueDate: dueDate || null,
@@ -1443,6 +1477,7 @@ async function addTask(text, startDate, dueDate, alarmTime, category, note){
     progressMode: (startDate && dueDate) ? 'auto' : 'manual'
   });
   if(alarmTime) await ensureNotifyPermission();
+  dedupeToday();
   await saveToday();
   state.newStart=null; state.newDue=null; state.newAlarm=null;
   state.newText=''; state.newNote='';
@@ -1564,6 +1599,7 @@ async function importApprovalPdfs(fileList){
       if(duplicate){ skipped.push(file.name); continue; }
       state.today.tasks.push({
         id:uid(), text:parsed.title, done:false, carried:false,
+        createdAt: Date.now(),
         category:parsed.category, startDate:null, dueDate:parsed.dueDate,
         approvalDate:null, sourceFile:parsed.fileName, documentNo:parsed.documentNo,
         alarmTime:null, alarmFired:false, completedAt:null,
@@ -1575,7 +1611,7 @@ async function importApprovalPdfs(fileList){
       failed.push(`${file.name}: ${e && e.message ? e.message : '인식 실패'}`);
     }
   }
-  if(added.length) await saveToday();
+  if(added.length){ dedupeToday(); await saveToday(); }
   state.pdfImportBusy=false;
   const parts=[];
   if(added.length) parts.push(`자동 입력 ${added.length}건`);
@@ -1896,6 +1932,7 @@ function renderToday(){
     pendingHtml = CATEGORIES.map(cat=>{
       const items = pending.filter(t=>taskCat(t)===cat.key);
       if(!items.length) return '';
+      items.sort((a,b)=> (b.createdAt||0) - (a.createdAt||0));   // 최근 입력이 맨 위
       return `
         <div class="cat-group-head"><span class="cat-mk" style="background:var(--cat-${cat.key})"></span>${cat.label}<span class="g-count">${items.length}</span></div>
         ${items.map(taskRow).join('')}
@@ -2733,6 +2770,7 @@ window.addEventListener('focus', pollSync);
   await migrateArchiveOnce();
   await loadArchive();
   await sweepOutstandingIntoToday();
+  await dedupeAndSave();
   await render();
   checkAlarms();
   fbInit();   // Firebase 설정돼 있으면 실시간 동기화, 아니면 기존 폴더 방식으로 자동 전환
