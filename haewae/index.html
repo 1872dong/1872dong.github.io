@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#0755a7"/>
+<title>럭키가이 해외가자</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --nav:#06478c; --nav2:#0a61b7; --blue:#1681f5; --blue2:#0d6ed7;
+  --line:#cfe1f3; --panel:#f9fcff; --soft:#eef7ff; --text:#0a2850; --muted:#647f9d;
+}
+*{box-sizing:border-box} body{margin:0;background:#fff;color:var(--text);font-family:Segoe UI,Arial,"Noto Sans KR",sans-serif}
+button,input,textarea,select{font:inherit}
+.app{min-height:100vh;background:linear-gradient(#fff,#f8fbff)}
+.topbar{height:74px;background:linear-gradient(90deg,#06478c,#0b61b8 58%,#06478c);color:#fff;display:flex;align-items:stretch;padding:0 24px;box-shadow:0 2px 8px #00396b33}
+.brand{display:flex;align-items:center;gap:12px;min-width:330px}.book{font-size:34px}.brand h1{font-size:23px;margin:0}.brand small{display:block;font-size:12px;opacity:.92;margin-top:3px}
+.tabs{display:flex;align-items:stretch;gap:1px;flex:1}.tab{border:0;color:white;background:#0a56a4;padding:0 22px;font-weight:700;cursor:pointer}.tab.active{background:#1681f5}.tab:hover{filter:brightness(1.07)}
+.status{display:flex;align-items:center;gap:16px;font-size:13px}.dot{width:11px;height:11px;border-radius:50%;background:#67dd51;display:inline-block}
+.content{padding:16px 20px 20px;max-width:1720px;margin:auto}
+.grid{display:grid;grid-template-columns:1fr 1.12fr;gap:14px}
+.panel{background:linear-gradient(180deg,#fff,#f9fcff);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 1px 2px #0b5aa90a}
+.panel-h{height:52px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid var(--line);font-weight:800;font-size:19px;gap:10px;background:linear-gradient(#fff,#f9fcff)}
+.panel-h small{font-size:12px;font-weight:600;color:var(--muted);margin-left:auto}
+.flag{font-size:22px}.pad{padding:14px 16px}
+textarea{width:100%;height:105px;border:1px solid #bdd4ea;border-radius:7px;padding:14px;font-size:21px;resize:none;outline:none;color:#18314e}
+textarea:focus{border-color:#1681f5;box-shadow:0 0 0 3px #1681f51a}
+.hint{font-size:13px;color:#71879f;margin:8px 2px 12px}
+.actions{display:grid;grid-template-columns:1fr 170px;gap:12px}.btn-primary{height:54px;border:0;border-radius:7px;background:linear-gradient(#1c89fb,#0e70de);color:#fff;font-size:19px;font-weight:800;cursor:pointer}.btn{height:54px;border:1px solid #bad2e8;border-radius:7px;background:white;color:#12365f;font-size:17px;font-weight:700;cursor:pointer}.btn:hover,.btn-primary:hover{filter:brightness(.98)}
+.recent-title{display:flex;align-items:center;margin-top:22px;font-size:16px;font-weight:800}.recent-title span:last-child{margin-left:auto;color:#7a8fa7;font-size:12px;font-weight:600;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{padding:9px 17px;border:1px solid #c9dced;background:#fff;border-radius:8px;font-weight:700;color:#36536f;cursor:pointer}
+.result-top{display:grid;grid-template-columns:1fr 260px;gap:14px}.result-main h2{font-size:32px;margin:0 0 5px;color:#0e2d59}.pron{font-size:18px;color:#3d5f84}.playrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.smallbtn{border:1px solid #a9d0f4;background:#f6fbff;color:#0b63bb;padding:10px 16px;border-radius:7px;font-weight:800;cursor:pointer}
+.savebtn{float:right;border:1px solid #a9d0f4;background:#fff;color:#0c6bd0;padding:10px 14px;border-radius:7px;font-weight:800}
+.info{background:#f4f9fd;border:1px solid #d9e9f6;border-radius:8px;overflow:hidden}.info .head{padding:10px 12px;background:#eaf4fb;font-weight:800}.info dl{display:grid;grid-template-columns:68px 1fr;gap:8px 10px;padding:12px;margin:0;font-size:14px}.info dt{font-weight:800}.info dd{margin:0;color:#405d7b}
+.examples{margin-top:12px}.examples h3{margin:0 0 8px;font-size:15px}.ex{display:grid;grid-template-columns:34px 1fr 40px;align-items:center;background:#edf6fe;border:1px solid #d8eafa;border-radius:8px;padding:8px;margin:7px 0}.n{width:27px;height:27px;border-radius:6px;background:white;border:1px solid #b8d9f5;display:grid;place-items:center;color:#1477dc;font-weight:800}.ex b{display:block;font-size:15px}.ex small{display:block;color:#5c7896;margin-top:2px}.speaker{border:1px solid #bad9f4;background:#fff;color:#1172d0;border-radius:7px;width:34px;height:34px;cursor:pointer}
+.bottom{margin-top:14px;display:grid;grid-template-columns:1fr 1.12fr;gap:14px}
+.table-wrap{overflow:auto;max-height:340px}.wordtable{width:100%;border-collapse:collapse;font-size:14px}.wordtable th,.wordtable td{border:1px solid #dbe8f3;padding:10px;text-align:center}.wordtable th{background:#f7fbff;color:#304e6e;position:sticky;top:0}.wordtable td:nth-child(2),.wordtable td:nth-child(4){text-align:left}.star{border:0;background:none;font-size:21px;color:#ffb51b;cursor:pointer}.empty{padding:50px 10px;text-align:center;color:#7c92a8}
+.detail{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.detail h2{font-size:30px;margin:0}.detail .krread{font-size:16px;color:#385d84;margin:4px 0 10px}.meta{display:grid;grid-template-columns:90px 1fr;gap:6px;font-size:14px;margin-top:12px}.meta b{font-weight:800}.photo{background:#f5f9fc;border:1px solid #d9e7f2;border-radius:8px;padding:10px;min-height:210px}.photo img{width:100%;height:190px;object-fit:cover;border-radius:6px;background:#e7eef5}.caption{text-align:center;color:#58728e;font-size:12px;margin-top:5px}.toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:10px}.select{border:1px solid #c8dced;background:#fff;border-radius:7px;padding:8px 10px}.manage{border:1px solid #bfd6eb;background:#fff;border-radius:7px;padding:8px 13px;font-weight:700;color:#36536f}
+.mobile-only{display:none}
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#102d4c;color:#fff;padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+#toast.show{opacity:1}
+.modal{position:fixed;inset:0;background:#001a3370;display:none;align-items:center;justify-content:center;z-index:100}.modal.show{display:flex}.box{background:white;width:min(620px,92vw);border-radius:12px;padding:20px;box-shadow:0 20px 60px #00152c55}.box h3{margin-top:0}.row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;margin:10px 0}.row input,.row select{height:40px;border:1px solid #bfd4e8;border-radius:6px;padding:0 10px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.view{display:none}.view.active{display:block}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:16px}.card{border:1px solid #d0e2f3;border-radius:10px;padding:14px;background:#fff}.card h3{margin:0 0 8px}.card p{margin:6px 0;color:#526f8d}.bigcenter{padding:60px 20px;text-align:center}.quizword{font-size:36px;font-weight:800}.quizopt{display:grid;grid-template-columns:repeat(2,minmax(150px,260px));gap:10px;justify-content:center;margin-top:20px}.quizopt button{padding:14px;border:1px solid #bbd4e9;background:white;border-radius:8px;font-weight:800}
+@media(max-width:900px){
+  .topbar{height:auto;min-height:64px;padding:8px 10px;flex-wrap:wrap}.brand{min-width:0;flex:1}.brand small{display:none}.tabs{order:3;width:100%;overflow:auto;height:48px}.tab{min-width:110px;padding:0 12px}.status{font-size:11px}.content{padding:10px}.grid,.bottom{grid-template-columns:1fr}.result-top,.detail{grid-template-columns:1fr}.actions{grid-template-columns:1fr 120px}.panel-h{font-size:17px}.result-main h2{font-size:27px}.photo img{height:180px}
+}
+.soundblock-wrap,.gloss-wrap{margin-top:14px}
+.sb-head{font-size:15px;font-weight:800;color:#0e2d59;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+#soundBlocks{display:flex;flex-wrap:wrap;gap:8px}
+.sb{font-size:16px}
+.sb.playing{background:#1681f5;color:#fff;border-color:#1681f5}
+#wordGloss{display:flex;flex-wrap:wrap;gap:8px}
+.gchip{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid #caddf0;background:#f6fbff;border-radius:8px;padding:8px 12px;cursor:pointer;min-width:56px}
+.gchip b{font-size:16px;color:#12365f}
+.gchip span{font-size:13px;color:#405d7b}
+.gchip:hover{background:#eaf4fb}
+.gchip .beat{font-size:13px;font-weight:800;line-height:1;font-style:normal;height:14px}
+.gchip .beat.strong{color:#0d6ed7}
+.gchip .beat.weak{color:#9fb2c6}
+.sub-h{font-size:14px;font-weight:800;color:#0e2d59;margin:6px 0 8px}
+.dayrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.daybtn{border:1px solid #cfe0f2;background:#fff;border-radius:10px;padding:8px 12px;font-weight:800;color:#12365f;cursor:pointer}
+.daybtn.active{background:#1681f5;color:#fff;border-color:#1681f5}
+.rhythm{font-size:22px;letter-spacing:8px;font-weight:800;margin:2px 0}
+.rhythm .s{color:#0d6ed7}.rhythm .w{color:#b8c6d6}
+.patt{font-size:30px;font-weight:800;color:#0b2f57;margin:2px 0}
+.blockwrap,.glosswrap{display:flex;flex-wrap:wrap;gap:8px}
+.diary-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.diary-grid{grid-template-columns:1fr}}
+.datenav{display:flex;gap:8px;align-items:center;justify-content:center;margin:6px 0 12px;flex-wrap:wrap}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;max-width:420px}
+.cal .h{font-size:11px;text-align:center;color:#6b829a;font-weight:700}
+.cal .d{aspect-ratio:1;border:1px solid #eef3f8;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;position:relative}
+.cal .d.other{visibility:hidden}
+.cal .d.today{border-color:#1681f5;font-weight:800}
+.cal .d.sel{background:#1681f5;color:#fff}
+.cal .d.has::after{content:"";width:6px;height:6px;border-radius:50%;background:#1681f5;position:absolute;bottom:5px}
+.notepad{min-height:300px;padding:8px 14px;line-height:34px;background-image:linear-gradient(to bottom,transparent 33px,#dbe7f2 34px);background-size:100% 34px;background-attachment:local;border:1px solid #cfe0f2;border-radius:10px}
+textarea.notepad{resize:vertical}
+.gchip .posk{font-size:11px;color:#8aa0b6}
+.cal.big{max-width:560px;gap:7px}.cal.big .d{font-size:15px}
+#dayVideo{width:100%;max-height:340px;background:#000;border-radius:10px;margin:6px 0}
+.wsbox{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.wschip{border:1px solid #cfe0f2;background:#f6fbff;border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer}
+#printArea{display:none}
+.sent-card{border:1px solid #e3edf6;border-radius:10px;padding:10px;margin-bottom:10px;background:#fafdff}
+.sent-line{cursor:pointer;font-size:16px;color:#0b2f57;padding:4px 6px;border-radius:8px}
+.sent-line:hover{background:#eef6fd}
+.sent-line.playing{background:#1681f5;color:#fff}
+.sb{text-align:center;line-height:1.25}
+.sb .bgl{display:block;font-size:11px;color:#647f9d;font-weight:400;margin-top:2px}
+.sb.playing .bgl{color:#dbeafe}
+.dict-top{display:grid;grid-template-columns:1fr 210px;gap:16px}
+@media(max-width:760px){.dict-top{grid-template-columns:1fr}}
+.dict-head{display:flex;align-items:center;gap:6px}
+.dict-head h2{margin:0;font-size:26px;color:#1b63c9}
+.dict-head .star{color:#ffb51b}
+.dict-ipa{color:#5b6b7b;font-size:15px;margin:4px 0 8px;background:#f2f6fa;display:inline-block;padding:3px 10px;border-radius:6px}
+.dict-audio{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.dict-pos{color:#8a97a5;font-size:14px;margin-bottom:4px;font-weight:700}
+.sense{padding:8px 0;border-top:1px solid #eef3f8}
+.sense:first-child{border-top:0}
+.sense-h{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.sense-h .snum{font-weight:800;color:#12365f}
+.sense-h .level{background:#eaf4e9;color:#2f9e4f;font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px}
+.sense-h .sko{color:#16324f;font-size:15px}
+.sense-ex{margin:4px 0 0 16px}
+.sense-ex .een{color:#1b63c9;cursor:pointer}
+.sense-ex .eko{color:#5b6b7b;font-size:14px}
+.sense-ex .dsay{border:0;background:transparent;cursor:pointer;font-size:13px}
+.dict-photo img.dimg{width:100%;border-radius:10px;background:#eef3f8;min-height:120px;max-height:200px;object-fit:cover}
+.dmodal{position:fixed;inset:0;background:rgba(9,32,58,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
+.dmodal.open{display:flex}
+.dmodal .dbox{background:#fff;border-radius:14px;max-width:620px;width:100%;max-height:85vh;overflow:auto;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+@media print{
+ body *{visibility:hidden!important}
+ #printArea,#printArea *{visibility:visible!important}
+ #printArea{display:block!important;position:absolute;left:0;top:0;width:100%;padding:12px}
+ .pbreak{page-break-after:always}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="book">📖</div><div><h1>🧳 럭키가이 해외가자 <span style="font-size:14px;font-weight:500">v4</span></h1><small>통역 · 단어장 · 블럭 공부 · 영어 일기 — 소리블록 학습</small></div></div>
+    <nav class="tabs">
+      <button class="tab active" data-view="translate">🔎 통역</button>
+      <button class="tab" data-view="words">📖 내 단어장</button>
+      <button class="tab" data-view="study">📅 블럭 공부</button>
+      <button class="tab" data-view="diary">📔 일기장 🔒</button>
+      <button class="tab" data-view="terms">🏢 회사 전문용어</button>
+      <button class="tab" data-view="settings">⚙ 설정</button>
+    </nav>
+    <div class="status"><span><span class="dot"></span> <span id="onlineState">오프라인 우선</span></span></div>
+  </header>
+
+  <main class="content">
+    <section id="view-translate" class="view active">
+      <div class="grid">
+        <section class="panel">
+          <div class="panel-h"><span class="flag">🇰🇷</span> 한국어 입력 / 음성 통역 <small>한국어로 말하거나 입력하세요.</small></div>
+          <div class="pad">
+            <textarea id="src" placeholder="예) 금형을 점검해 주세요"></textarea>
+            <div class="hint">예) 금형 점검, 생산 시작, 불량 원인, 납기 일정, 수리 요청 ...</div>
+            <div class="actions">
+              <button id="translateBtn" class="btn-primary">🔎 통역 시작</button>
+              <button id="voiceBtn" class="btn">🎙 음성 입력</button>
+            </div>
+            <div class="recent-title"><span>◷ 최근 통역</span><span id="clearRecent">🗑 전체 삭제</span></div>
+            <div class="chips" id="recentChips"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-h"><span class="flag">🇺🇸</span> 영어 통역 / 결과 <small>업무에서 바로 쓸 수 있는 표현</small></div>
+          <div class="pad">
+            <button id="saveResult" class="savebtn">⭐ 단어장에 저장</button>
+            <div class="result-top">
+              <div class="result-main">
+                <h2 id="resultText">Please inspect the mold.</h2>
+                <div class="pron" id="resultPron">플리즈 인스펙트 더 몰드</div>
+                <div class="playrow">
+                  <button class="smallbtn" data-speak="result">🔊 듣기 (보통 속도)</button>
+                  <button class="smallbtn" data-slow="result">🐢 느리게 듣기</button>
+                  <button class="smallbtn" id="swapMode">⇄ 영→한 통역</button>
+                </div>
+                <div class="soundblock-wrap" id="soundblockWrap">
+                  <div class="sb-head">🔊 블럭별 읽기 <button class="smallbtn" id="playBlocksBtn">▶ 블럭 순서대로 듣기</button></div>
+                  <div id="soundBlocks"></div>
+                </div>
+                <div class="gloss-wrap" id="glossWrap">
+                  <div class="sb-head">🔤 단어별 해석 <small style="font-weight:600;color:#647f9d">· 강세(리듬) : <b style="color:#0d6ed7">D</b> 강하게 · <b style="color:#9fb2c6">d</b> 약하게</small></div>
+                  <div id="wordGloss"></div>
+                </div>
+                <div class="examples">
+                  <h3>다른 표현</h3>
+                  <div id="examples"></div>
+                </div>
+                <div class="soundblock-wrap" id="interpWrap" style="display:none">
+                  <div class="sb-head">📚 줄별 통역 <button class="smallbtn" id="playInterpLines">▶ 한 줄씩 듣기</button> <small style="font-weight:600;color:#647f9d">여러 줄을 입력하면 줄별로 통역·읽기</small></div>
+                  <div id="interpLines"></div>
+                </div>
+              </div>
+              <aside class="info">
+                <div class="head">추가 정보</div>
+                <dl>
+                  <dt>구분</dt><dd id="infoPart">업무 문장</dd>
+                  <dt>뜻</dt><dd id="infoMeaning">금형을 점검해 주세요.</dd>
+                  <dt>유의어</dt><dd id="infoSyn">check / examine / verify</dd>
+                  <dt>관련 단어</dt><dd id="infoRel">inspection / inspector / damage</dd>
+                  <dt>사용 분야</dt><dd id="infoField">생산, 품질, 유지보수</dd>
+                  <dt>블럭 해석</dt><dd id="infoBlocks">—</dd>
+                  <dt>품사</dt><dd id="infoPos">—</dd>
+                  <dt>실제 발음</dt><dd id="infoReal">—</dd>
+                </dl>
+              </aside>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="bottom">
+        <section class="panel">
+          <div class="panel-h">📖 한국어 단어 <small>내가 저장한 단어만 표시됩니다.</small></div>
+          <div class="table-wrap">
+            <table class="wordtable">
+              <thead><tr><th>번호</th><th>한국어</th><th>품사</th><th>영어 단어</th><th>읽는 법</th><th>듣기</th><th>저장</th></tr></thead>
+              <tbody id="savedBody"></tbody>
+            </table>
+            <div id="emptySaved" class="empty">아직 저장한 단어가 없습니다.<br>통역 결과에서 ⭐ 단어장에 저장을 눌러주세요.</div>
+          </div>
+          <div class="pad toolbar"><select class="select" id="fieldFilter"><option value="">분야 전체</option><option>금형</option><option>생산</option><option>품질</option><option>일반</option></select><button id="addWord" class="manage">⚙ 단어 직접 추가</button></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-h">📖 단어 상세 정보 <small>이미지와 예문으로 쉽게 기억하세요.</small></div>
+          <div class="pad"><div id="detailRoot"></div></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-words" class="view"><section class="panel"><div class="panel-h">📖 내 단어장 <small>통역 중 직접 저장한 단어</small></div><div class="cardgrid" id="wordCards"></div></section></section>
+    <section id="view-study" class="view">
+      <section class="panel">
+        <div class="panel-h">📅 블럭 공부 <small>10일 소리블록 챌린지 · 하루 약 30분 (첨부 영상 기반 초안)</small></div>
+        <div class="pad">
+          <div class="dayrow" id="dayRow"></div>
+          <div id="dayCard"></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="view-diary" class="view">
+      <section class="panel" id="diaryLock">
+        <div class="panel-h">🔒 일기장 잠금</div>
+        <div class="pad">
+          <p id="pwMsg" style="color:#6b829a;font-size:13px;margin:0 0 10px"></p>
+          <input id="pwInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••" style="width:200px;padding:10px;border:1px solid #cfe0f2;border-radius:8px;font-size:16px">
+          <div style="margin-top:12px"><button class="btn-primary" style="width:160px" id="pwBtn">열기</button></div>
+        </div>
+      </section>
+      <section class="panel" id="diaryMain" style="display:none">
+        <div class="panel-h">📔 영어 일기 <small>한글로 쓰면 영어로 통역해 학습</small>
+          <button class="smallbtn" id="lockBtn" style="float:right">🔒 잠그기</button></div>
+        <div class="pad">
+          <div class="datenav">
+            <button class="smallbtn" id="prevDay">◀ 어제</button>
+            <button class="smallbtn" id="todayBtn">오늘</button>
+            <b id="curDate" style="min-width:170px;text-align:center;color:#0b2f57"></b>
+            <button class="smallbtn" id="nextDay">내일 ▶</button>
+          </div>
+          <div class="diary-grid">
+            <div>
+              <div class="sub-h">✏️ 한국어 일기 <small style="font-weight:400;color:#647f9d">· S펜으로 바로 필기(삼성 키보드 손글씨) 가능</small></div>
+              <textarea id="diaryKo" class="notepad" wrap="off" rows="30" style="width:100%;height:520px;overflow:auto;font-size:17px;line-height:34px;font-family:inherit;touch-action:manipulation" placeholder="오늘 있었던 일을 한국어로 적어보세요. 한 줄에 한 문장씩 쓰면 오른쪽에 줄 맞춰 통역됩니다. (갤럭시 S펜: 칸을 탭 → 삼성 키보드 ✍️ 손글씨 모드로 필기)"></textarea>
+              <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                <button class="btn-primary" style="width:150px" id="diaryTrans">→ 영어로 통역</button>
+                <button class="smallbtn" id="diarySave">💾 저장</button>
+                <button class="smallbtn" id="penPad">✍️ 손글씨 패드</button>
+              </div>
+            </div>
+            <div>
+              <div class="sub-h">🌐 영어 일기</div>
+              <div id="diaryEnWrap" class="notepad" style="border:1px solid #cfe0f2;border-radius:10px;height:520px;overflow:auto">
+                <div id="diaryEn" style="font-size:17px;color:#0b2f57;font-weight:600;white-space:pre;line-height:34px"></div>
+                <div id="diaryEnPron" style="color:#6b829a;font-size:14px"></div>
+              </div>
+              <div class="sub-h" style="margin-top:12px">📚 줄별 학습 <button class="smallbtn" id="dPlayLines">▶ 한 줄씩 듣기</button> <small style="font-weight:400;color:#647f9d">· 한 줄씩 통역·읽기 · 단어 뜻 표시</small></div>
+              <div id="diarySentences"></div>
+              <div class="sub-h" style="margin-top:12px">ℹ️ 추가 정보 (품사 · 실제 발음)</div>
+              <div id="dInfo" style="font-size:14px;line-height:1.6"></div>
+            </div>
+          </div>
+          <div class="sub-h" style="margin-top:16px">🗓️ 달력 <button class="smallbtn" id="calToggle">➕ 펼치기</button> <small style="color:#6b829a;font-weight:400">· 점 = 일기 쓴 날</small></div>
+          <div id="calBox" style="display:none">
+            <div class="datenav">
+              <button class="smallbtn" id="calPrev">◀</button>
+              <b id="calTitle" style="min-width:120px;text-align:center"></b>
+              <button class="smallbtn" id="calNext">▶</button>
+            </div>
+            <div class="cal big" id="calGrid"></div>
+          </div>
+          <canvas id="penCanvas" width="700" height="220" style="display:none;width:100%;border:1px dashed #9fb2c6;border-radius:10px;background:#fffef7;margin-top:10px;touch-action:none"></canvas>
+        </div>
+      </section>
+    </section>
+    <section id="view-terms" class="view"><section class="panel"><div class="panel-h">🏢 회사 전문용어 <small>금형/사출/가공/품질 중심 기본 용어</small></div><div class="cardgrid" id="termCards"></div></section></section>
+    <section id="view-settings" class="view"><section class="panel"><div class="panel-h">⚙ 설정</div><div class="pad">
+      <div class="row"><label>온라인 번역</label><select id="onlineTranslate"><option value="on">사용함 (인터넷 통역)</option><option value="off">사용 안 함 (오프라인만)</option></select></div>
+      <div style="color:#6b829a;font-size:13px;margin-bottom:18px">인터넷 통역을 사용하면 로컬 사전에 없는 일반 문장도 무료 온라인 번역으로 처리합니다. 회사 기밀·대외비 문장은 입력하지 않는 것을 권장합니다.</div>
+      <div class="row"><label>영어 자동 읽기</label><select id="autoSpeak"><option value="off">끄기</option><option value="on">켜기</option></select></div>
+      <div class="row"><label>영어 음성 속도</label><select id="voiceRate"><option value="1">보통</option><option value="0.82">약간 느리게</option><option value="0.68">느리게</option></select></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><button id="backupBtn" class="smallbtn">💾 단어장 백업</button><label class="smallbtn" style="cursor:pointer">📂 백업 복원<input type="file" id="restoreInput" accept=".json" hidden></label><button id="installBtn" class="smallbtn" style="display:none">📱 앱 설치</button></div>
+    </div></section></section>
+  </main>
+</div>
+
+<div class="dmodal" id="dictModal"><div class="dbox"><button class="smallbtn" id="dictClose" style="float:right">닫기</button><div id="dictBody"></div></div></div>
+<div id="printArea"></div>
+<div id="toast"></div>
+
+<div class="modal" id="wordModal"><div class="box">
+  <h3>단어 직접 추가</h3>
+  <div class="row"><label>한국어</label><input id="mKo"></div>
+  <div class="row"><label>영어</label><input id="mEn"></div>
+  <div class="row"><label>한글식 읽는 법</label><input id="mRead"></div>
+  <div class="row"><label>품사</label><input id="mPart" value="명사"></div>
+  <div class="row"><label>분야</label><select id="mField"><option>금형</option><option>생산</option><option>품질</option><option>일반</option></select></div>
+  <div class="modal-actions"><button class="smallbtn" id="cancelModal">취소</button><button class="btn-primary" style="width:130px" id="saveModal">저장</button></div>
+</div></div>
+
+<script>
+const $ = s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const phraseDB = [
+ {ko:"머리가 복잡하네",aliases:["머리가 복잡해","머리가 복잡하네요","머리가 복잡합니다","생각이 많아","생각이 많네"],en:"I have a lot on my mind.",read:"아이 해브 어 랏 온 마이 마인드",field:"일반",syn:"My mind is all over the place. / I have a lot to think about.",rel:"mind / think / worry / stress",examples:[["I have a lot on my mind today.","오늘은 생각할 게 많아요."],["My mind is all over the place right now.","지금 머릿속이 너무 복잡해요."],["I need a moment to clear my head.","잠깐 머리를 식힐 시간이 필요해요."]]},
+ {ko:"금형을 점검해 주세요",en:"Please inspect the mold.",read:"플리즈 인스펙트 더 몰드",field:"금형",syn:"check / examine / verify",rel:"inspection / inspector / damage",examples:[["Please inspect the mold before production.","생산 전에 금형을 점검해 주세요."],["We need to check the mold condition.","금형 상태를 확인해야 합니다."],["Please verify the mold for damage.","금형 손상 여부를 확인해 주세요."]]},
+ {ko:"생산을 시작하겠습니다",en:"We will start production.",read:"위 윌 스타트 프로덕션",field:"생산",syn:"begin / commence",rel:"production / process / operation",examples:[["Production will begin now.","지금 생산을 시작하겠습니다."],["Please prepare for production.","생산을 준비해 주세요."]]},
+ {ko:"불량 원인을 확인해 주세요",en:"Please check the cause of the defect.",read:"플리즈 체크 더 코즈 오브 더 디펙트",field:"품질",syn:"identify / inspect / verify",rel:"defect / cause / quality",examples:[["Please identify the root cause.","근본 원인을 확인해 주세요."],["We need to analyze the defect.","불량을 분석해야 합니다."]]},
+ {ko:"수리가 필요합니다",en:"It needs repair.",read:"잇 니즈 리페어",field:"금형",syn:"fix / repair / service",rel:"repair / maintenance / damage",examples:[["The mold needs repair.","금형 수리가 필요합니다."],["Please repair this part.","이 부품을 수리해 주세요."]]},
+ {ko:"납기 일정을 확인해 주세요",en:"Please check the delivery schedule.",read:"플리즈 체크 더 딜리버리 스케줄",field:"일반",syn:"confirm / verify",rel:"delivery / schedule / due date",examples:[["Please confirm the due date.","납기일을 확인해 주세요."],["When can you deliver it?","언제 납품할 수 있나요?"]]},
+ {ko:"금형 온도를 확인해 주세요",en:"Please check the mold temperature.",read:"플리즈 체크 더 몰드 템퍼러처",field:"금형",syn:"inspect / verify",rel:"temperature / cooling / heater",examples:[["The mold temperature is too high.","금형 온도가 너무 높습니다."],["Please check the cooling line.","냉각 라인을 확인해 주세요."]]},
+ {ko:"압력을 낮춰 주세요",en:"Please lower the pressure.",read:"플리즈 로워 더 프레셔",field:"생산",syn:"reduce / decrease",rel:"pressure / injection / setting",examples:[["Please reduce the injection pressure.","사출 압력을 낮춰 주세요."],["The pressure is too high.","압력이 너무 높습니다."]]}
+];
+const termDB = [
+ {ko:"금형",en:"mold",read:"몰드",ipa:"/moʊld/",part:"명사",field:"금형",meaning:"금형, 몰드, 틀",related:"molding · mold base · mold cavity · tooling",example:"The mold is being cleaned.|금형을 청소하고 있습니다."},
+ {ko:"점검하다",en:"inspect",read:"인스펙트",ipa:"/ɪnˈspekt/",part:"동사",field:"금형",meaning:"점검하다, 검사하다",related:"inspection · inspector · check",example:"Please inspect the mold.|금형을 점검해 주세요."},
+ {ko:"생산",en:"production",read:"프로덕션",ipa:"/prəˈdʌkʃən/",part:"명사",field:"생산",meaning:"생산",related:"process · operation · output",example:"Production starts today.|생산은 오늘 시작합니다."},
+ {ko:"손상",en:"damage",read:"대미지",ipa:"/ˈdæmɪdʒ/",part:"명사",field:"품질",meaning:"손상, 파손",related:"crack · scratch · defect",example:"Check the mold for damage.|금형 손상 여부를 확인하세요."},
+ {ko:"수리",en:"repair",read:"리페어",ipa:"/rɪˈper/",part:"명사/동사",field:"금형",meaning:"수리, 수리하다",related:"maintenance · fix · service",example:"The mold needs repair.|금형 수리가 필요합니다."},
+ {ko:"불량",en:"defect",read:"디펙트",ipa:"/ˈdiːfekt/",part:"명사",field:"품질",meaning:"불량, 결함",related:"quality · cause · failure",example:"We found a defect.|불량을 발견했습니다."},
+ {ko:"온도",en:"temperature",read:"템퍼러처",ipa:"/ˈtemprətʃər/",part:"명사",field:"생산",meaning:"온도",related:"heater · cooling · sensor",example:"Check the temperature.|온도를 확인하세요."},
+ {ko:"압력",en:"pressure",read:"프레셔",ipa:"/ˈpreʃər/",part:"명사",field:"생산",meaning:"압력",related:"injection · setting · force",example:"Lower the pressure.|압력을 낮춰 주세요."},
+ {ko:"사출",en:"injection molding",read:"인젝션 몰딩",ipa:"",part:"명사",field:"생산",meaning:"사출 성형",related:"molding · resin · machine",example:"Injection molding is in progress.|사출 성형이 진행 중입니다."}
+];
+
+const state = {
+  mode: localStorage.getItem("mode")||"ko-en",
+  saved: JSON.parse(localStorage.getItem("savedWords")||"[]"),
+  recent: JSON.parse(localStorage.getItem("recent")||"[]"),
+  settings: JSON.parse(localStorage.getItem("settings")||'{"online":"on","autoSpeak":"off","rate":"1"}'),
+  selected:null
+};
+function persist(){localStorage.setItem("savedWords",JSON.stringify(state.saved));localStorage.setItem("recent",JSON.stringify(state.recent));localStorage.setItem("settings",JSON.stringify(state.settings));localStorage.setItem("mode",state.mode)}
+
+// v3.2: 새 설치 및 기존 v3.x 사용자를 온라인 통역 기본값으로 1회 전환
+if(!localStorage.getItem("v32OnlineMigrated")){
+  state.settings.online = "on";
+  localStorage.setItem("v32OnlineMigrated","1");
+  persist();
+}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1800)}
+function confirmExternalSend(){
+  if(sessionStorage.getItem("externalSendOK")==="1") return true;
+  const ok=confirm("이 문장이 외부 번역 서버(MyMemory)로 전송됩니다.\n회사 기밀·대외비·개인정보가 포함되지 않았는지 확인해 주세요.\n계속할까요?\n\n(이번 접속 동안에는 다시 묻지 않습니다.)");
+  if(ok) sessionStorage.setItem("externalSendOK","1");
+  return ok;
+}
+function normalize(s){return (s||"").trim().replace(/[.?!요]$/,"").replace(/\s+/g," ")}
+function findPhrase(q){
+  const n=normalize(q), nl=n.toLowerCase();
+  return phraseDB.find(x=>normalize(x.ko)===n || normalize(x.en).toLowerCase()===nl || (x.aliases||[]).some(a=>normalize(a)===n))
+    || phraseDB.find(x=>normalize(x.ko).includes(n)||n.includes(normalize(x.ko)) || (x.aliases||[]).some(a=>normalize(a).includes(n)||n.includes(normalize(a))));
+}
+function hangulFallback(en){
+  const hit=phraseDB.find(x=>x.en.toLowerCase()===en.toLowerCase()); return hit?hit.read:"영어 발음은 🔊 듣기로 확인하세요";
+}
+async function translate(){
+  const raw=$("#src").value; const q=raw.trim(); if(!q){toast("통역할 문장을 입력해 주세요.");return}
+  const _lines=raw.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  if(_lines.length>1){await translateMultiline(_lines);return}
+  let data=findPhrase(q), result;
+  if(state.mode==="ko-en"){
+    if(data) result={text:data.en,read:data.read,meaning:data.ko,field:data.field,syn:data.syn,rel:data.rel,examples:data.examples};
+    else if(state.settings.online==="on"){
+      if(!confirmExternalSend()){renderResult({text:"온라인 통역이 취소되었습니다.",read:"외부 서버 전송을 취소했습니다.",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]});return}
+      try{
+        $("#resultText").textContent="번역 중...";
+        const tx=await translateText(q,"ko|en");
+        if(!tx) throw 0;
+        result={text:tx,read:hangulFallback(tx),meaning:q,field:"일반",syn:"-",rel:"-",examples:[[tx,q]]};
+      }catch(e){toast("인터넷 번역 서버에 연결하지 못했습니다. 네트워크를 확인해 주세요."); result={text:"오프라인 통역 범위를 벗어난 문장입니다.",read:"설정에서 온라인 번역을 켜면 일반 문장도 통역할 수 있습니다.",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]}}
+    }else result={text:"오프라인 통역 범위를 벗어난 문장입니다.",read:"설정에서 온라인 번역을 켜면 일반 문장도 통역할 수 있습니다.",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]}
+  } else {
+    if(data) result={text:data.ko,read:"",meaning:data.en,field:data.field,syn:data.syn,rel:data.rel,examples:data.examples.map(x=>[x[1],x[0]])};
+    else if(state.settings.online==="on"){
+      if(!confirmExternalSend()){renderResult({text:"온라인 통역이 취소되었습니다.",read:"",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]});return}
+      try{
+        $("#resultText").textContent="번역 중...";
+        const tx=await translateText(q,"en|ko");
+        if(!tx) throw 0;
+        result={text:tx,read:"",meaning:q,field:"일반",syn:"-",rel:"-",examples:[[tx,q]]};
+      }catch(e){toast("인터넷 번역 서버에 연결하지 못했습니다. 네트워크를 확인해 주세요."); result={text:"오프라인 통역 범위를 벗어난 문장입니다.",read:"",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]}}
+    }else result={text:"오프라인 통역 범위를 벗어난 문장입니다.",read:"",meaning:q,field:"일반",syn:"-",rel:"-",examples:[]}
+  }
+  renderResult(result); addRecent(q); if(state.settings.autoSpeak==="on" && state.mode==="ko-en") speak(result.text,parseFloat(state.settings.rate));
+}
+function renderResult(r){
+  state.lastResult=r; $("#resultText").textContent=r.text; $("#resultPron").textContent=r.read||"";
+  $("#infoMeaning").textContent=r.meaning; $("#infoSyn").textContent=r.syn; $("#infoRel").textContent=r.rel; $("#infoField").textContent=r.field;
+  const ex=$("#examples"); ex.innerHTML="";
+  (r.examples||[]).slice(0,3).forEach((x,i)=>{const d=document.createElement("div");d.className="ex";d.innerHTML=`<span class="n">${i+1}</span><div><b>${esc(x[0])}</b><small>${esc(x[1])}</small></div><button class="speaker">🔊</button>`;d.querySelector("button").onclick=()=>speak(x[0],1);ex.appendChild(d)});
+  renderSoundBlocks(r);renderWordGloss(r);
+  const eng=englishOf(r);
+  if(isTranslatable(eng)){
+    $("#infoBlocks").innerHTML=blocksHtml(eng);
+    $("#infoPos").innerHTML=posHtml(eng);
+    $("#infoReal").innerHTML=realHtml(eng);
+  }else{$("#infoBlocks").textContent="—";$("#infoPos").textContent="—";$("#infoReal").textContent="—"}
+  const iw=$("#interpWrap"); if(iw)iw.style.display="none";
+}
+function speakEn(text,rate=1){if(!("speechSynthesis" in window)){toast("이 기기는 음성 읽기를 지원하지 않습니다.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=rate;speechSynthesis.speak(u)}
+function englishOf(r){return state.mode==="ko-en"?(r.text||""):(r.meaning||"")}
+function isTranslatable(t){return /[A-Za-z]/.test(t) && !/범위를 벗어난|취소되었|번역 중/.test(t)}
+function cleanWord(w){return (w||"").toLowerCase().replace(/[’]/g,"'").replace(/[^a-z']/g,"")}
+const BREAK_BEFORE=new Set(["to","for","of","in","on","at","with","from","into","about","before","after","and","but","or","so","because","when","while","if","as","than","that"]);
+const ATTACH_NEXT=new Set(["the","a","an","my","your","our","his","her","its","their","this","that","these","those"]);
+function splitBlocks(sentence){
+  const words=String(sentence).replace(/\s+/g," ").trim().split(" ");
+  const blocks=[];let cur=[];
+  words.forEach((w,i)=>{
+    const bare=cleanWord(w);
+    const lastBare=cur.length?cleanWord(cur[cur.length-1]):"";
+    if(i>0 && cur.length && (BREAK_BEFORE.has(bare)||cur.length>=3) && !ATTACH_NEXT.has(lastBare)){blocks.push(cur.join(" "));cur=[]}
+    cur.push(w);
+    if(/[.?!,;:]$/.test(w)){blocks.push(cur.join(" "));cur=[]}
+  });
+  if(cur.length)blocks.push(cur.join(" "));
+  return blocks.filter(Boolean);
+}
+const GLOSS={
+ "i":"나","you":"너/당신","we":"우리","he":"그","she":"그녀","it":"그것","they":"그들","me":"나를","my":"나의","your":"너의","our":"우리의","this":"이것/이","that":"저것/그","these":"이것들","those":"저것들",
+ "the":"(그)","a":"하나의","an":"하나의","to":"~로/~하기","of":"~의","in":"~안에","on":"~위에","at":"~에","for":"~을 위해","with":"~와 함께","from":"~로부터","into":"~안으로","about":"~에 관해","before":"~전에","after":"~후에","and":"그리고","but":"하지만","or":"또는","so":"그래서","because":"왜냐하면","when":"~할 때","while":"~하는 동안","if":"만약","as":"~로서","than":"~보다","not":"~아니다","no":"아니오","yes":"예","please":"부디/~해 주세요","now":"지금","today":"오늘","too":"너무","very":"매우","also":"또한","just":"단지","here":"여기","there":"거기","up":"위로","down":"아래로",
+ "is":"~이다","are":"~이다","am":"~이다","was":"~였다","were":"~였다","be":"~이다","been":"~였다","being":"~인 상태","do":"~하다","does":"~하다","did":"~했다","have":"가지다","has":"가지다","had":"가졌다","will":"~할 것이다","can":"~할 수 있다","could":"~할 수 있었다","should":"~해야 한다","would":"~할 것이다","may":"~일지 모른다","must":"~해야 한다",
+ "need":"필요하다","needs":"필요하다","want":"원하다","let":"~하게 하다","make":"만들다","get":"얻다","go":"가다","come":"오다","take":"가져가다","give":"주다","know":"알다","think":"생각하다","see":"보다","look":"보다","find":"찾다","use":"사용하다","work":"일하다","keep":"유지하다","start":"시작하다","begin":"시작하다","stop":"멈추다","help":"돕다","try":"시도하다","tell":"말하다","ask":"묻다","call":"부르다","turn":"돌리다","set":"설정하다","run":"작동하다","send":"보내다","wait":"기다리다",
+ "don't":"~하지 않다","doesn't":"~하지 않다","didn't":"~하지 않았다","can't":"~할 수 없다","won't":"~하지 않을 것","isn't":"~아니다","aren't":"~아니다","it's":"그것은 ~이다","i'm":"나는 ~이다","you're":"너는 ~이다","we're":"우리는 ~이다","that's":"그것은 ~이다","let's":"~하자","i've":"나는 ~했다","wanna":"~하고 싶다","gonna":"~할 것이다","gotta":"~해야 한다",
+ "mold":"금형","molds":"금형들","molding":"사출/성형","injection":"사출","inject":"사출하다","inspect":"점검하다","inspection":"점검/검사","inspector":"검사자","check":"확인하다","examine":"조사하다","verify":"확인하다","confirm":"확인하다","identify":"식별하다","analyze":"분석하다","production":"생산","produce":"생산하다","process":"공정","operation":"작동/운전","output":"산출량","repair":"수리","maintenance":"유지보수","fix":"고치다","service":"정비","damage":"손상","crack":"균열","scratch":"긁힘","defect":"불량/결함","defects":"불량들","cause":"원인","root":"근본","quality":"품질","condition":"상태","part":"부품","parts":"부품들","tool":"공구","tooling":"금형/공구","core":"코어","cavity":"캐비티","gate":"게이트","base":"베이스","cooling":"냉각","cool":"식히다","heater":"히터","temperature":"온도","pressure":"압력","sensor":"센서","resin":"수지","machine":"기계","line":"라인","delivery":"납품/납기","deliver":"납품하다","schedule":"일정","date":"날짜","due":"마감(예정)","ready":"준비된","prepare":"준비하다","required":"필요한","clean":"청소하다","cleaning":"청소","high":"높은","low":"낮은","lower":"낮추다","reduce":"줄이다","increase":"늘리다","first":"먼저","next":"다음","again":"다시",
+ "mind":"마음/생각","lot":"많음","head":"머리","moment":"순간","place":"장소","stress":"스트레스","worry":"걱정","problem":"문제","issue":"문제","time":"시간","day":"날","way":"방법"
+};
+const WEAK=new Set(["a","an","the","to","of","in","on","at","for","and","but","or","nor","is","are","am","was","were","be","been","being","do","does","did","will","would","can","could","shall","should","may","might","i","you","he","she","it","we","they","me","him","her","us","them","my","your","his","its","our","their","as","so","if","than","from","with","up","that","this","these","those","there","here"]);
+function beatOf(word){const k=cleanWord(word);if(!k)return"";return WEAK.has(k)?"d":"D"}
+function glossWord(w){
+  const k=cleanWord(w);if(!k)return"";
+  if(GLOSS[k])return GLOSS[k];
+  if(k.endsWith("s")&&GLOSS[k.slice(0,-1)])return GLOSS[k.slice(0,-1)];
+  if(k.endsWith("es")&&GLOSS[k.slice(0,-2)])return GLOSS[k.slice(0,-2)];
+  if(k.endsWith("ing")&&GLOSS[k.slice(0,-3)])return GLOSS[k.slice(0,-3)];
+  if(k.endsWith("ed")&&GLOSS[k.slice(0,-2)])return GLOSS[k.slice(0,-2)];
+  return"";
+}
+const POS_KO={be:"BE동사",verb:"동사",noun:"명사",adj:"형용사",adv:"부사",pron:"대명사",det:"한정사",art:"관사",prep:"전치사",conj:"접속사",aux:"조동사"};
+const POS={
+ "i":"pron","you":"pron","we":"pron","he":"pron","she":"pron","it":"pron","they":"pron","me":"pron","him":"pron","her":"pron","us":"pron","them":"pron",
+ "my":"det","your":"det","his":"det","its":"det","our":"det","their":"det","this":"det","that":"det","these":"det","those":"det",
+ "the":"art","a":"art","an":"art",
+ "to":"prep","of":"prep","in":"prep","on":"prep","at":"prep","for":"prep","with":"prep","from":"prep","into":"prep","about":"prep","before":"prep","after":"prep","by":"prep","as":"prep",
+ "and":"conj","but":"conj","or":"conj","so":"conj","because":"conj","when":"conj","while":"conj","if":"conj","than":"conj","that ":"conj",
+ "is":"be","are":"be","am":"be","was":"be","were":"be","be":"be","been":"be","being":"be",
+ "do":"aux","does":"aux","did":"aux","will":"aux","would":"aux","can":"aux","could":"aux","should":"aux","may":"aux","might":"aux","must":"aux","shall":"aux","don't":"aux","doesn't":"aux","didn't":"aux","can't":"aux","won't":"aux",
+ "need":"verb","want":"verb","let":"verb","make":"verb","get":"verb","go":"verb","come":"verb","take":"verb","give":"verb","know":"verb","think":"verb","see":"verb","look":"verb","find":"verb","help":"verb","use":"verb","work":"verb","keep":"verb","start":"verb","begin":"verb","stop":"verb","try":"verb","tell":"verb","ask":"verb","call":"verb","turn":"verb","set":"verb","run":"verb","send":"verb","wait":"verb","have":"verb","has":"verb","had":"verb","inspect":"verb","check":"verb","examine":"verb","verify":"verb","confirm":"verb","identify":"verb","analyze":"verb","produce":"verb","repair":"verb","fix":"verb","cool":"verb","lower":"verb","reduce":"verb","increase":"verb","clean":"verb","prepare":"verb","deliver":"verb","wanna":"verb","gonna":"verb","gotta":"verb","speak":"verb","recommend":"verb","used":"verb","eat":"verb","sleep":"verb","leave":"verb","learn":"verb","hurry":"verb","focus":"verb",
+ "mold":"noun","injection":"noun","inspection":"noun","inspector":"noun","production":"noun","process":"noun","operation":"noun","output":"noun","maintenance":"noun","damage":"noun","crack":"noun","scratch":"noun","defect":"noun","cause":"noun","root":"noun","quality":"noun","condition":"noun","part":"noun","tool":"noun","tooling":"noun","core":"noun","cavity":"noun","gate":"noun","base":"noun","cooling":"noun","heater":"noun","temperature":"noun","pressure":"noun","sensor":"noun","resin":"noun","machine":"noun","line":"noun","delivery":"noun","schedule":"noun","date":"noun","mind":"noun","lot":"noun","head":"noun","moment":"noun","place":"noun","stress":"noun","problem":"noun","issue":"noun","time":"noun","day":"noun","way":"noun","home":"noun","yoga":"noun","pilates":"noun","english":"noun","restroom":"noun","airport":"noun","picture":"noun",
+ "high":"adj","low":"adj","ready":"adj","required":"adj","good":"adj","slow":"adj","lost":"adj","careful":"adj","fine":"adj",
+ "not":"adv","please":"adv","now":"adv","today":"adv","too":"adv","very":"adv","also":"adv","just":"adv","here":"adv","there":"adv","really":"adv","slowly":"adv","well":"adv","first":"adv","next":"adv","again":"adv","anymore":"adv","even":"adv"
+};
+function posOf(w){const k=cleanWord(w);if(!k)return"";
+  if(POS[k])return POS[k];
+  if(k.endsWith("s")&&POS[k.slice(0,-1)])return POS[k.slice(0,-1)];
+  if(k.endsWith("ly"))return"adv";
+  if(k.endsWith("ing")||k.endsWith("ed"))return"verb";
+  return"";
+}
+const REDUCTIONS=[
+ [/\bwant to\b|\bwanna\b/,"want to → <b>워너(wanna)</b> : t 약화 + 연음"],
+ [/\bgoing to\b|\bgonna\b/,"going to → <b>거너(gonna)</b>"],
+ [/\bgot to\b|\bgotta\b/,"got to → <b>가라(gotta)</b> : t 플랩(ㄹ)"],
+ [/\bhave to\b/,"have to → <b>해프투(hæftə)</b> : v 뒤 t 약화"],
+ [/\bhas to\b/,"has to → <b>해스투</b>"],
+ [/\bused to\b/,"used to → <b>유스투(juːstə)</b> : d 탈락"],
+ [/\bsupposed to\b/,"supposed to → <b>서포즈투</b> : d 탈락"],
+ [/\babout to\b/,"about to → <b>어바우러</b> : t 플랩"],
+ [/\bkind of\b|\bkinda\b/,"kind of → <b>카인더(kinda)</b>"],
+ [/\bout of\b/,"out of → <b>아우러브</b> : t 플랩 + 연음"],
+ [/\blet me\b/,"let me → <b>레미(lemme)</b> : t 탈락"],
+ [/\bget (him|her|it|them|you)\b/,"get + 대명사 → <b>게림/게릿</b> (t 플랩·연음)"],
+ [/\bdon't (know|you|want)\b/,"don't + 다음말 → t 거의 안 들림 (<b>도노</b>=don't know)"],
+ [/\b(water|better|city|little|letter|get it)\b/,"모음 사이 t/tt → 부드러운 'ㄹ'(플랩) : water=<b>워러</b>, better=<b>베러</b>"],
+ [/\band\b/,"and → 문장 속에서 <b>은(ən/n)</b> 으로 약하게"]
+];
+function connectedSpeech(t){const low=" "+t.toLowerCase()+" ",out=[],seen=new Set();
+  REDUCTIONS.forEach(([re,tip])=>{if(re.test(low)&&!seen.has(tip)){out.push(tip);seen.add(tip)}});return out.slice(0,5)}
+function blocksHtml(eng){return splitBlocks(eng).map(bl=>`<div>▸ <b>${esc(bl)}</b> <span style="color:#6b829a">${esc(bl.split(/\s+/).map(w=>localGloss(w)||"·").join(" "))}</span></div>`).join("")}
+function posHtml(eng){return eng.split(/\s+/).filter(Boolean).map(w=>{const p=posOf(w);return p?`${esc(w)}<span style="color:#1681f5">(${POS_KO[p]})</span>`:esc(w)}).join(" · ")}
+function realHtml(eng){const cs=connectedSpeech(eng);return cs.length?cs.map(x=>`<div>🔊 ${x}</div>`).join(""):"특이 연결발음 없음 — 또박또박 읽어도 OK"}
+/* 요일별 핵심 단어 (블럭 공부용) */
+const DAY_WORDS=[
+ [["wanna","~하고 싶다"],["home","집"],["eat","먹다"],["something","무언가"]],
+ [["gonna","~할 것이다"],["learn","배우다"],["fine","괜찮은"],["be","~이다(BE동사)"]],
+ [["have to","~해야 한다"],["try","시도하다"],["careful","조심하는"],["this","이것"]],
+ [["about to","막 ~하려는"],["leave","떠나다"],["call","전화하다"],["you","너"]],
+ [["used to","~하곤 했다"],["live","살다"],["smoke","담배 피우다"],["here","여기"]],
+ [["can't","~할 수 없다"],["even","~조차"],["do","하다"],["yoga","요가"]],
+ [["trying to","~하려는 중"],["sleep","자다"],["focus","집중하다"]],
+ [["let me","내가 ~할게"],["check","확인하다"],["help","돕다"]],
+ [["better","~하는 게 낫다"],["hurry","서두르다"],["not","~아니다"]],
+ [["supposed to","~하기로 되어있다"],["there","거기"],["work","일하다"]]
+];
+function renderSoundBlocks(r){
+  const wrap=$("#soundBlocks"),head=$("#soundblockWrap"),eng=englishOf(r);
+  if(!isTranslatable(eng)){head.style.display="none";wrap.innerHTML="";return}
+  head.style.display="block";
+  const blocks=splitBlocks(eng);
+  wrap.innerHTML=blocks.map(blockBtnHtml).join("");
+  $$("#soundBlocks .sb").forEach(b=>b.onclick=()=>{$$("#soundBlocks .sb").forEach(x=>x.classList.remove("playing"));b.classList.add("playing");speakEn(b.dataset.text,.9)});
+}
+function playBlocksSeq(){
+  const btns=$$("#soundBlocks .sb");if(!btns.length){toast("먼저 통역을 실행해 주세요.");return}
+  speechSynthesis.cancel();let i=0;
+  (function next(){
+    if(i>=btns.length){btns.forEach(b=>b.classList.remove("playing"));return}
+    btns.forEach((b,j)=>b.classList.toggle("playing",j===i));
+    const u=new SpeechSynthesisUtterance(btns[i].dataset.text);u.lang="en-US";u.rate=.9;
+    u.onend=()=>{i++;setTimeout(next,300)};u.onerror=()=>{i++;setTimeout(next,300)};
+    speechSynthesis.speak(u);
+  })();
+}
+function renderWordGloss(r){
+  const wrap=$("#wordGloss"),head=$("#glossWrap"),eng=englishOf(r);
+  if(!isTranslatable(eng)){head.style.display="none";wrap.innerHTML="";return}
+  head.style.display="block";
+  const words=eng.split(/\s+/).filter(Boolean);
+  wrap.innerHTML=words.map(w=>{const g=localGloss(w),b=beatOf(w),p=posOf(w);return `<button class="gchip" data-text="${esc(cleanWord(w))}"><i class="beat ${b==="D"?"strong":"weak"}">${b}</i><b>${esc(w)}</b>${p?`<span class="posk">${POS_KO[p]}</span>`:""}<span class="kom">${g?esc(g):"—"}</span></button>`}).join("");
+  $$("#wordGloss .gchip").forEach(b=>b.onclick=()=>openWordDetail(b.dataset.text));
+  fillGlosses("#wordGloss");
+}
+function addRecent(q){state.recent=[q,...state.recent.filter(x=>x!==q)].slice(0,6);persist();renderRecent()}
+function renderRecent(){const w=$("#recentChips");w.innerHTML="";state.recent.forEach(x=>{const b=document.createElement("button");b.className="chip";b.textContent=x.length>12?x.slice(0,12)+"…":x;b.title=x;b.onclick=()=>{$("#src").value=x;translate()};w.appendChild(b)})}
+function speak(text,rate=1){if(!("speechSynthesis" in window)){toast("이 기기는 음성 읽기를 지원하지 않습니다.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=state.mode==="ko-en"?"en-US":"ko-KR";u.rate=rate;speechSynthesis.speak(u)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function saveTerm(term){
+  if(state.saved.some(x=>x.en.toLowerCase()===term.en.toLowerCase())){toast("이미 저장된 단어입니다.");return}
+  state.saved.push(term);persist();renderSaved();toast("단어장에 저장했습니다.")
+}
+function resultToTerm(){
+  const q=$("#src").value.trim(), r=state.lastResult; if(!r)return;
+  const hit=termDB.find(t=>q.includes(t.ko)||r.text.toLowerCase().includes(t.en.toLowerCase()));
+  if(hit){saveTerm(hit);selectTerm(hit);return}
+  const term={ko:q,en:r.text,read:r.read||"",ipa:"",part:"문장",field:r.field||"일반",meaning:q,related:r.rel||"-",example:`${r.text}|${q}`};saveTerm(term);selectTerm(term)
+}
+function renderSaved(){
+  const body=$("#savedBody");body.innerHTML=""; const filter=$("#fieldFilter").value;
+  const list=state.saved.filter(x=>!filter||x.field===filter); $("#emptySaved").style.display=list.length?"none":"block";
+  list.forEach((w,i)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td>${esc(w.ko)}</td><td>${esc(w.part||"")}</td><td>${esc(w.en)}</td><td>${esc(w.read||"")}</td><td><button class="speaker">🔊</button></td><td><button class="star">★</button></td>`;tr.onclick=e=>{if(!e.target.matches("button"))selectTerm(w)};tr.querySelector(".speaker").onclick=e=>{e.stopPropagation();speak(w.en,1)};tr.querySelector(".star").onclick=e=>{e.stopPropagation();state.saved=state.saved.filter(x=>x!==w);persist();renderSaved();renderWordCards()};body.appendChild(tr)});
+  renderWordCards()
+}
+function svgImage(term){
+  const title=term.ko||"업무"; const en=term.en||"WORK";
+  const icon = term.field==="금형" ? "⚙" : term.field==="생산" ? "🏭" : term.field==="품질" ? "🔍" : "💼";
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf4fb"/><stop offset="1" stop-color="#c9dbe9"/></linearGradient></defs><rect width="600" height="380" fill="url(#g)"/><rect x="95" y="85" width="410" height="210" rx="22" fill="#8da1b3"/><rect x="125" y="115" width="350" height="150" rx="16" fill="#d7e0e7"/><circle cx="170" cy="150" r="18" fill="#6d7e8c"/><circle cx="430" cy="150" r="18" fill="#6d7e8c"/><circle cx="170" cy="230" r="18" fill="#6d7e8c"/><circle cx="430" cy="230" r="18" fill="#6d7e8c"/><text x="300" y="205" text-anchor="middle" font-size="68">${icon}</text><text x="300" y="330" text-anchor="middle" font-family="Arial" font-size="28" fill="#14385b">${esc(title)} · ${esc(en)}</text></svg>`;
+  return "data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(svg)))
+}
+function selectTerm(t){
+  state.selected=t;
+  const p=(t.example||"|").split("|");
+  const term={en:t.en||"", ipa:t.ipa||(t.read?"["+t.read+"]":""), part:t.part||POS_KO[posOf(t.en||"")]||"", audio:"",
+    senses:[{ko:t.meaning||t.ko||"", exEn:p[0]||"", exKo:p[1]||"", level:t.field||""}]};
+  renderDict($("#detailRoot"), term);
+}
+function renderWordCards(){const c=$("#wordCards");c.innerHTML="";if(!state.saved.length){c.innerHTML='<div class="empty">저장한 단어가 없습니다.</div>';return}state.saved.forEach(w=>{const d=document.createElement("div");d.className="card";d.innerHTML=`<h3>${esc(w.ko)} → ${esc(w.en)}</h3><p>${esc(w.read||"")}</p><p>${esc(w.meaning||"")}</p><button class="smallbtn">🔊 듣기</button>`;d.querySelector("button").onclick=()=>speak(w.en,1);c.appendChild(d)})}
+function renderTerms(){const c=$("#termCards");c.innerHTML="";termDB.forEach(w=>{const d=document.createElement("div");d.className="card";d.innerHTML=`<h3>${esc(w.ko)} <span style="color:#0b6acb">→ ${esc(w.en)}</span></h3><p>${esc(w.read)} ${esc(w.ipa)}</p><p>${esc(w.meaning)}</p><button class="smallbtn">⭐ 저장</button>`;d.querySelector("button").onclick=()=>saveTerm(w);c.appendChild(d)})}
+function newQuiz(){
+  const a=$("#quizArea"); if(state.saved.length<2){a.innerHTML='<div class="empty">단어를 2개 이상 저장하면 퀴즈를 시작할 수 있습니다.</div>';return}
+  const correct=state.saved[Math.floor(Math.random()*state.saved.length)];
+  let opts=[correct,...state.saved.filter(x=>x!==correct).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);
+  a.innerHTML=`<div style="color:#647f9d">다음 한국어의 영어 표현은?</div><div class="quizword">${esc(correct.ko)}</div><div class="quizopt">${opts.map(o=>`<button data-en="${esc(o.en)}">${esc(o.en)}</button>`).join("")}</div>`;
+  $$("#quizArea button").forEach(b=>b.onclick=()=>{if(b.dataset.en===correct.en){b.style.background="#e7f8e7";toast("정답입니다!")}else{b.style.background="#ffeaea";toast("다시 생각해 보세요.")}})
+}
+function setupVoice(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$("#voiceBtn").onclick=()=>toast("이 브라우저는 음성 입력을 지원하지 않습니다. Chrome/Edge를 사용해 주세요.");return}
+  const r=new SR();r.lang=state.mode==="ko-en"?"ko-KR":"en-US";r.interimResults=false;r.maxAlternatives=1;
+  $("#voiceBtn").onclick=()=>{r.lang=state.mode==="ko-en"?"ko-KR":"en-US";r.start();$("#voiceBtn").textContent="🎙 듣는 중..."}
+  r.onresult=e=>{$("#src").value=e.results[0][0].transcript;$("#voiceBtn").textContent="🎙 음성 입력";translate()}
+  r.onerror=()=>{$("#voiceBtn").textContent="🎙 음성 입력";toast("음성 인식에 실패했습니다.")}
+  r.onend=()=>$("#voiceBtn").textContent="🎙 음성 입력";
+}
+function showView(v){$$(".view").forEach(x=>x.classList.remove("active"));$("#view-"+v).classList.add("active");$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===v));if(v==="study")renderStudy();if(v==="diary")refreshDiaryLock()}
+$$(".tab").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+$("#translateBtn").onclick=translate;
+$("#clearRecent").onclick=()=>{state.recent=[];persist();renderRecent()};
+$("#saveResult").onclick=resultToTerm;
+$("#swapMode").onclick=()=>{state.mode=state.mode==="ko-en"?"en-ko":"ko-en";persist();$("#swapMode").textContent=state.mode==="ko-en"?"⇄ 영→한 통역":"⇄ 한→영 통역";$(".panel-h .flag").textContent=state.mode==="ko-en"?"🇰🇷":"🇺🇸";$("#src").placeholder=state.mode==="ko-en"?"예) 금형을 점검해 주세요":"e.g. Please inspect the mold.";toast(state.mode==="ko-en"?"한→영 통역 모드":"영→한 통역 모드")};
+$('[data-speak="result"]').onclick=()=>speak($("#resultText").textContent,parseFloat(state.settings.rate));
+$('[data-slow="result"]').onclick=()=>speak($("#resultText").textContent,.65);
+$("#playBlocksBtn").onclick=playBlocksSeq;
+/* 단어 상세 오디오는 renderDict 내부에서 바인딩됨 */
+$("#fieldFilter").onchange=renderSaved;
+$("#addWord").onclick=()=>$("#wordModal").classList.add("show");$("#cancelModal").onclick=()=>$("#wordModal").classList.remove("show");
+$("#saveModal").onclick=()=>{const t={ko:$("#mKo").value.trim(),en:$("#mEn").value.trim(),read:$("#mRead").value.trim(),ipa:"",part:$("#mPart").value.trim(),field:$("#mField").value,meaning:$("#mKo").value.trim(),related:"",example:""};if(!t.ko||!t.en){toast("한국어와 영어를 입력해 주세요.");return}saveTerm(t);$("#wordModal").classList.remove("show");selectTerm(t)};
+/* 퀴즈 제거됨 */
+$("#onlineTranslate").value=state.settings.online;$("#autoSpeak").value=state.settings.autoSpeak;$("#voiceRate").value=state.settings.rate;
+$("#onlineTranslate").onchange=e=>{state.settings.online=e.target.value;persist();$("#onlineState").textContent=e.target.value==="on"?"인터넷 통역 ON":"오프라인 모드"};
+$("#autoSpeak").onchange=e=>{state.settings.autoSpeak=e.target.value;persist()};$("#voiceRate").onchange=e=>{state.settings.rate=e.target.value;persist()};
+$("#backupBtn").onclick=()=>{const blob=new Blob([JSON.stringify({saved:state.saved,recent:state.recent,settings:state.settings},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="회사_통역기_백업.json";a.click();URL.revokeObjectURL(a.href)};
+$("#restoreInput").onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text());state.saved=j.saved||[];state.recent=j.recent||[];state.settings=j.settings||state.settings;persist();renderSaved();renderRecent();toast("백업을 복원했습니다.")}catch{toast("백업 파일을 읽지 못했습니다.")}};
+let installPrompt=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("#installBtn").style.display="inline-block"});$("#installBtn").onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("#installBtn").style.display="none"}};
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+$("#onlineState").textContent=state.settings.online==="on"?"인터넷 통역 ON":"오프라인 모드";
+renderRecent();renderSaved();renderTerms();setupVoice();selectTerm(termDB[0]);renderResult({text:"Please inspect the mold.",read:"플리즈 인스펙트 더 몰드",meaning:"금형을 점검해 주세요.",field:"금형",syn:"check / examine / verify",rel:"inspection / inspector / damage",examples:phraseDB[0].examples});
+/* ===== 럭키가이 해외가자 : 블럭 공부 / 일기장 ===== */
+const hwGet=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const hwSet=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const CURRIC=[
+ {p:"I wanna ~",ipa:"[ aɪ ˈwɑːnə ]",ko:"나 ~하고 싶어",ex:[["I wanna go home.","집에 가고 싶어."],["I wanna eat something.","뭐 좀 먹고 싶어."]],clip:"want to는 실제로 '워너(wanna)'로 약하게 이어 발음"},
+ {p:"We're gonna ~",ipa:"[ wɪr ˈɡɐnə ]",ko:"우리 ~할 거야",ex:[["We're gonna learn English.","우리 영어 배울 거야."],["We're gonna be fine.","우린 괜찮을 거야."]],clip:"going to → '거너(gonna)', we're는 '위r'로 붙여서"},
+ {p:"You have to ~",ipa:"[ juː ˈhæv tə ]",ko:"너는 ~해야 한다",ex:[["You have to try this.","이거 꼭 해봐야 해."],["You have to be careful.","조심해야 해."]],clip:"have to는 '해프투(hæftə)'처럼 t가 f 뒤에서 약하게"},
+ {p:"I'm about to ~",ipa:"[ aɪm əˈbaʊt tə ]",ko:"막 ~하려던 참이야",ex:[["I'm about to leave.","막 나가려던 참이야."],["I'm about to call you.","너한테 전화하려던 참."]],clip:"about to → '어바우러', t가 약하게 흘러감"},
+ {p:"I used to ~",ipa:"[ aɪ ˈjuːs tə ]",ko:"~하곤 했어 (지금은 아님)",ex:[["I used to live here.","여기 살았었어."],["I used to smoke.","담배 피우곤 했어."]],clip:"used to는 '유스투(juːstə)' — d 소리 안 남"},
+ {p:"I can't even ~",ipa:"[ aɪ kænt ˈiːvən ]",ko:"나 ~조차 못해",ex:[["I can't even do yoga.","요가조차 못해."],["I can't even speak.","말도 못 하겠어."]],clip:"can't의 t는 거의 안 들리고 even과 이어져 '캐니븐'"},
+ {p:"I'm trying to ~",ipa:"[ aɪm ˈtraɪɪn tə ]",ko:"~하려고 하는 중이야",ex:[["I'm trying to sleep.","자려고 하는 중이야."],["I'm trying to focus.","집중하려는 중."]],clip:"trying to → '트라이너(tryna)'로 줄여 발음"},
+ {p:"Let me ~",ipa:"[ ˈlɛt mi ]",ko:"내가 ~할게 / ~하게 해줘",ex:[["Let me check.","내가 확인해 볼게."],["Let me help you.","내가 도와줄게."]],clip:"let me → '레미(lemme)', t가 사라짐"},
+ {p:"You'd better ~",ipa:"[ jud ˈbɛɾər ]",ko:"너 ~하는 게 좋을걸",ex:[["You'd better hurry.","서두르는 게 좋을걸."],["You'd better not.","그만두는 게 좋아."]],clip:"better의 tt는 부드러운 'ㄹ'(플랩) — '베러'"},
+ {p:"I'm supposed to ~",ipa:"[ aɪm səˈpoʊs tə ]",ko:"나 ~하기로 되어 있어",ex:[["I'm supposed to be there.","거기 있어야 해."],["I'm supposed to work.","일하기로 돼 있어."]],clip:"supposed to → '서포즈투', d 탈락"}
+];
+function rhythmMarks(p){return p.replace(/~/g,"").trim().split(/\s+/).map(w=>{const b=beatOf(w);return `<span class="${b==='D'?'s':'w'}">${b}</span>`}).join(" ")}
+function renderStudy(){
+  const row=$("#dayRow");
+  row.innerHTML=CURRIC.map((c,i)=>`<button class="daybtn ${i===0?'active':''}" data-day="${i}">Day ${i+1}</button>`).join("");
+  $$("#dayRow .daybtn").forEach(b=>b.onclick=()=>{$$("#dayRow .daybtn").forEach(x=>x.classList.toggle("active",x===b));showDay(+b.dataset.day)});
+  showDay(0);
+}
+function showDay(i){
+  const c=CURRIC[i], words=DAY_WORDS[i]||[];
+  $("#dayCard").innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div class="sub-h" style="margin:0">Day ${i+1} · 오늘의 소리블록 패턴</div>
+      <button class="smallbtn" id="printStudyBtn">🖨 교재 인쇄 / PDF 저장</button>
+    </div>
+    <div class="rhythm">${rhythmMarks(c.p)}</div>
+    <div class="patt">${esc(c.p)}</div>
+    <div style="color:#6b829a;font-size:15px">${esc(c.ipa)}</div>
+    <div style="font-size:16px;margin:4px 0 10px">: ${esc(c.ko)}</div>
+    <button class="smallbtn" id="dPattSpeak">🔊 패턴 듣기</button>
+    <div class="sub-h" style="margin-top:14px">🎬 예제 동영상</div>
+    <video id="dayVideo" controls playsinline></video>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <label class="smallbtn" style="cursor:pointer">📂 동영상 불러오기<input type="file" id="dayVideoFile" accept="video/*" hidden></label>
+      <small style="color:#6b829a">파일 선택 또는 폴더에 <b>videos/Day${i+1}.mp4</b> 로 넣기</small>
+    </div>
+    <div class="sub-h" style="margin-top:14px">🔤 오늘의 단어</div>
+    <div class="wsbox" id="dayWords"></div>
+    <div class="sub-h" style="margin-top:10px">📝 예문 · 문장 (블럭별 읽기)</div>
+    <div id="dayEx"></div>
+    <div class="sub-h" style="margin-top:12px">🎬 외국인 실제 발음</div>
+    <div style="background:#f6fbff;border:1px solid #e3edf6;border-radius:10px;padding:10px 12px;font-size:15px">${esc(c.clip)}</div>
+    <div style="color:#6b829a;font-size:13px;margin-top:12px">30분 학습법 : ① 패턴+단어 8분 ② 예제 동영상 섀도잉 12분 ③ 나만의 문장 만들어 통역 탭 확인 10분</div>`;
+  $("#dPattSpeak").onclick=()=>speakEn(c.p.replace(/~/g,"").trim(),.9);
+  const vid=$("#dayVideo");vid.src=`videos/Day${i+1}.mp4`;vid.onerror=()=>{vid.removeAttribute("src")};
+  $("#dayVideoFile").onchange=e=>{const f=e.target.files[0];if(f){vid.onerror=null;vid.src=URL.createObjectURL(f);vid.load()}};
+  $("#dayWords").innerHTML=words.map(w=>`<button class="wschip" data-say="${esc(w[0])}"><b>${esc(w[0])}</b> · ${esc(w[1])}</button>`).join("");
+  $$("#dayWords .wschip").forEach(b=>b.onclick=()=>speakEn(b.dataset.say,.9));
+  $("#dayEx").innerHTML=c.ex.map(e=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eef3f8">
+     <b style="flex:1">${esc(e[0])}<br><small style="color:#6b829a;font-weight:400">${esc(e[1])}</small></b>
+     <button class="smallbtn" data-say="${esc(e[0])}">🔊</button></div>`).join("");
+  $$("#dayEx [data-say]").forEach(b=>b.onclick=()=>speakEn(b.dataset.say,.9));
+  $("#printStudyBtn").onclick=printStudy;
+}
+const glossCache=(()=>{try{return JSON.parse(localStorage.getItem("hw_gloss")||"{}")}catch(e){return {}}})();
+function localGloss(w){const k=cleanWord(w);return glossWord(w)||glossCache[k]||""}
+async function fetchWordGloss(w){const k=cleanWord(w);if(!k)return"";if(glossWord(w))return glossWord(w);if(glossCache[k])return glossCache[k];
+  try{const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(k)+"&langpair=en|ko");const j=await r.json();let t=((j&&j.responseData&&j.responseData.translatedText)||"").trim();
+    if(t&&t.toLowerCase()!==k){glossCache[k]=t;try{localStorage.setItem("hw_gloss",JSON.stringify(glossCache))}catch(e){}}return t}catch(e){return""}}
+async function fillGlosses(sel){
+  const chips=[...document.querySelectorAll(sel+" .gchip")];
+  for(const chip of chips){const span=chip.querySelector(".kom");if(!span)continue;const cur=span.textContent.trim();
+    if(cur&&cur!=="—")continue;const b=chip.querySelector("b");const w=b?b.textContent:"";const g=await fetchWordGloss(w);if(g)span.textContent=g}
+}
+async function translateText(text,pair){
+  try{const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(text)+"&langpair="+pair);const j=await r.json();return (j&&j.responseData&&j.responseData.translatedText)||"";}catch(e){return ""}
+}
+function blockBtnHtml(b){const g=b.split(/\s+/).map(w=>localGloss(w)||"·").join(" ");return `<button class="smallbtn sb" data-t="${esc(b)}" data-text="${esc(b)}">${esc(b)}<small class="bgl">${esc(g)}</small></button>`}
+function renderLinePairs(sel,pairs,opts){opts=opts||{};
+  const box=$(sel);if(!box)return;
+  box.innerHTML=pairs.map(([ko,en],i)=>{
+    const blockHtml=splitBlocks(en).map(blockBtnHtml).join("");
+    const glossHtml=en.split(/\s+/).filter(Boolean).map(w=>{const g=localGloss(w),bt=beatOf(w),p=posOf(w);return `<button class="gchip" data-say="${esc(cleanWord(w))}"><i class="beat ${bt==='D'?'strong':'weak'}">${bt}</i><b>${esc(w)}</b>${p?`<span class="posk">${POS_KO[p]}</span>`:''}<span class="kom">${g?esc(g):'—'}</span></button>`}).join("");
+    return `<div class="sent-card">
+      ${opts.showKo?`<div style="color:#647f9d;font-size:14px;margin-bottom:2px">📝 ${esc(ko)}</div>`:""}
+      <div class="sent-line" data-say="${esc(en)}">🔊 <b>${esc(en)}</b> <small style="color:#8aa0b6;font-weight:400">${i+1}줄</small></div>
+      <div class="blockwrap" style="margin:6px 0">${blockHtml}</div>
+      <div class="glosswrap">${glossHtml}</div>
+    </div>`;
+  }).join("");
+  bindLineEvents(sel);
+  fillGlosses(sel);
+}
+function bindLineEvents(sel){
+  $$(sel+" .sent-line").forEach(el=>el.onclick=()=>speakEn(el.dataset.say,.9));
+  $$(sel+" .sb").forEach(b=>b.onclick=()=>{$$(sel+" .sb").forEach(x=>x.classList.remove("playing"));b.classList.add("playing");speakEn(b.dataset.t,.9)});
+  $$(sel+" .gchip").forEach(b=>b.onclick=()=>openWordModal(b.dataset.say));
+}
+function playLinesSeq(sel){
+  const lines=$$(sel+" .sent-line");if(!lines.length){toast("먼저 통역하세요.");return}
+  speechSynthesis.cancel();let i=0;
+  (function next(){if(i>=lines.length){lines.forEach(l=>l.classList.remove("playing"));return}
+    lines.forEach((l,j)=>l.classList.toggle("playing",j===i));
+    const u=new SpeechSynthesisUtterance(lines[i].dataset.say);u.lang="en-US";u.rate=.9;
+    u.onend=()=>{i++;setTimeout(next,350)};u.onerror=()=>{i++;setTimeout(next,350)};speechSynthesis.speak(u)})();
+}
+async function translateOneLine(line){
+  const pair=state.mode==="ko-en"?"ko|en":"en|ko";
+  const data=findPhrase(line);
+  if(data)return pair==="ko|en"?data.en:data.ko;
+  if(state.settings.online!=="on")return "(온라인 통역 필요)";
+  const out=await translateText(line,pair);return out||"(통역 실패)";
+}
+async function translateMultiline(lines){
+  if(state.settings.online==="on" && !confirmExternalSend())return;
+  $("#resultText").textContent="한 줄씩 통역 중...";
+  const pairs=[];
+  for(const line of lines){const out=await translateOneLine(line);pairs.push(state.mode==="ko-en"?[line,out]:[out,line])}
+  const allEn=pairs.map(p=>p[1]).join(" ");
+  state.lastResult={text:pairs.map(p=>state.mode==="ko-en"?p[1]:p[0]).join("\n"),read:"",meaning:lines.join(" / "),field:"여러 줄",syn:"-",rel:"-",examples:[]};
+  $("#resultText").textContent="여러 줄 통역 · 아래에서 줄별로 확인하세요";
+  $("#resultPron").textContent="";$("#examples").innerHTML="";
+  $("#infoMeaning").textContent=lines.join(" / ");$("#infoSyn").textContent="-";$("#infoRel").textContent="-";$("#infoField").textContent="여러 줄";
+  $("#infoBlocks").innerHTML="아래 줄별 학습 참고";$("#infoPos").innerHTML=posHtml(allEn);$("#infoReal").innerHTML=realHtml(allEn);
+  $("#soundblockWrap").style.display="none";$("#glossWrap").style.display="none";$("#interpWrap").style.display="block";
+  renderLinePairs("#interpLines",pairs,{showKo:true});
+  addRecent(lines[0]);
+}
+function playSeqSel(sel){const btns=$$(sel+" .sb");if(!btns.length){toast("먼저 통역하세요.");return}speechSynthesis.cancel();let i=0;(function next(){if(i>=btns.length){btns.forEach(b=>b.classList.remove("playing"));return}btns.forEach((b,j)=>b.classList.toggle("playing",j===i));const u=new SpeechSynthesisUtterance(btns[i].dataset.t||btns[i].dataset.text);u.lang="en-US";u.rate=.9;u.onend=()=>{i++;setTimeout(next,300)};u.onerror=()=>{i++;setTimeout(next,300)};speechSynthesis.speak(u)})()}
+/* ── 사전형 단어 상세 (스샷 스타일) ── */
+const KR_READ={i:"아이",you:"유",we:"위",the:"더",a:"어",an:"언",to:"투",of:"오브",in:"인",on:"온",for:"포",and:"앤드",is:"이즈",are:"아",am:"엠",was:"워즈",be:"비",do:"두",did:"디드",have:"해브",has:"해즈","don't":"돈","can't":"캔트",can:"캔",will:"윌",wanna:"워너",gonna:"거너",gotta:"가라",used:"유스드",go:"고우",come:"컴",get:"겟",eat:"잇",sleep:"슬립",home:"홈",check:"첵",help:"헬프",please:"플리즈",here:"히어",there:"데어",now:"나우",this:"디스",that:"댓",want:"원트",need:"니드",learn:"런",try:"트라이",leave:"리브",call:"콜",focus:"포커스",hurry:"허리",work:"워크",even:"이븐",better:"베러",live:"리브",yoga:"요가",evening:"이브닝"};
+function krRead(w){return KR_READ[cleanWord(w)]||""}
+function exampleFor(bare){
+  for(const p of phraseDB){if(p.en.toLowerCase().includes(bare))return p.en+"|"+p.ko}
+  try{for(const c of CURRIC){for(const e of c.ex){if(e[0].toLowerCase().includes(bare))return e[0]+"|"+e[1]}}}catch(_){}
+  return "";
+}
+function posKoEn(p){return {noun:"명사",verb:"동사",adjective:"형용사",adverb:"부사",pronoun:"대명사",preposition:"전치사",conjunction:"접속사",interjection:"감탄사",determiner:"한정사",article:"관사",numeral:"수사"}[p]||""}
+function sensesHtml(senses){
+  if(!senses||!senses.length)return `<div class="sense"><span class="sko">뜻 정보를 불러오는 중…</span></div>`;
+  return senses.map((s,i)=>`<div class="sense"><div class="sense-h"><span class="snum">${i+1}.</span>${s.level?`<span class="level">${esc(s.level)}</span>`:""}<span class="sko">${esc(s.ko||"")}</span></div>${s.exEn?`<div class="sense-ex"><span class="een" data-say="${esc(s.exEn)}">${esc(s.exEn)}</span> <button class="dsay" data-say="${esc(s.exEn)}">🔊</button><div class="eko">${esc(s.exKo||"")}</div></div>`:""}</div>`).join("");
+}
+function dictHtml(term){
+  const s=(term.senses&&term.senses.length)?term.senses:[{ko:"(뜻 정보 없음)"}];
+  return `<div class="dict"><div class="dict-top">
+    <div class="dict-info">
+      <div class="dict-head"><h2>${esc(term.en||"")}</h2><span class="star">★</span></div>
+      <div class="dict-ipa">${esc(term.ipa||"발음 불러오는 중…")}</div>
+      <div class="dict-audio"><button class="smallbtn dbAll">🔊 All</button><button class="smallbtn dbUS">🇺🇸 미국</button><button class="smallbtn dbUK">🇬🇧 영국</button><button class="smallbtn dbSlow">🐢 느리게</button></div>
+      <div class="dict-pos">${esc(term.part||"")}</div>
+      <div class="dict-senses">${sensesHtml(s)}</div>
+    </div>
+    <div class="dict-photo"><img class="dimg" alt=""></div>
+  </div></div>`;
+}
+function speakLang(text,lang){if(!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.9;speechSynthesis.speak(u)}
+function playWordAudio(term){if(term.audio){try{const a=new Audio(term.audio.startsWith("//")?"https:"+term.audio:term.audio);a.play();return}catch(e){}}speakEn(term.en,.9)}
+function setDictPhoto(root,term){
+  const img=root.querySelector(".dimg");if(!img)return;
+  const fb={en:term.en,ko:(term.senses&&term.senses[0]&&term.senses[0].ko)||"",field:""};
+  img.src=svgImage(fb);   /* 외부 이미지 미사용 — 로컬 일러스트만 (광고/외부그림 원천 차단) */
+}
+function renderDict(root,term){
+  if(!root)return;
+  root.innerHTML=dictHtml(term);
+  root.querySelector(".dbAll")&&(root.querySelector(".dbAll").onclick=()=>playWordAudio(term));
+  root.querySelector(".dbUS")&&(root.querySelector(".dbUS").onclick=()=>speakLang(term.en,"en-US"));
+  root.querySelector(".dbUK")&&(root.querySelector(".dbUK").onclick=()=>speakLang(term.en,"en-GB"));
+  root.querySelector(".dbSlow")&&(root.querySelector(".dbSlow").onclick=()=>speakEn(term.en,.55));
+  root.querySelectorAll(".dsay,.een").forEach(el=>el.onclick=()=>speakEn(el.dataset.say,.9));
+  setDictPhoto(root,term);
+}
+async function mmEnKo(text){try{const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(text)+"&langpair=en|ko");const j=await r.json();return (j&&j.responseData&&j.responseData.translatedText)||""}catch(e){return ""}}
+async function showWordDict(word,root){
+  const bare=cleanWord(word);
+  const ex=exampleFor(bare),ep=ex?ex.split("|"):["",""];
+  const term={en:(word||"").replace(/[.,?!;:]/g,"")||bare, ipa:krRead(bare)?"["+krRead(bare)+"]":"", part:POS_KO[posOf(word)]||"", audio:"",
+    senses:[{ko:localGloss(word)||"(사전에 없음)", exEn:ep[0]||"", exKo:ep[1]||""}]};
+  renderDict(root,term);            // 로컬 즉시 표시 (오프라인도 동작)
+  speakEn(bare,.95);
+  try{                              // 온라인 보강: 발음기호·오디오·여러 뜻·예문
+    const r=await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/"+encodeURIComponent(bare));
+    if(!r.ok)return;
+    const e=(await r.json())[0];if(!e)return;
+    let ipa="",audio="";(e.phonetics||[]).forEach(p=>{if(p.text&&!ipa)ipa=p.text;if(p.audio&&!audio)audio=p.audio});
+    if(ipa)term.ipa=ipa; term.audio=audio;
+    const raw=[];(e.meanings||[]).forEach(m=>{(m.definitions||[]).slice(0,1).forEach(d=>raw.push({pos:m.partOfSpeech,def:d.definition,ex:d.example||""}))});
+    const top=raw.slice(0,3),senses=[];
+    for(const sdef of top){const koDef=await mmEnKo(sdef.def);const koEx=sdef.ex?await mmEnKo(sdef.ex):"";senses.push({ko:((posKoEn(sdef.pos)?posKoEn(sdef.pos)+" ":"")+koDef).trim(),exEn:sdef.ex,exKo:koEx})}
+    if(senses.length)term.senses=senses;
+    if(!term.part&&top[0])term.part=posKoEn(top[0].pos);
+    renderDict(root,term);
+  }catch(e){}
+}
+function openWordDetail(w){ showWordDict(w,$("#detailRoot")); const el=$("#detailRoot"); if(el)el.scrollIntoView({behavior:"smooth",block:"center"}); }
+function openWordModal(w){ $("#dictModal").classList.add("open"); showWordDict(w,$("#dictBody")); }
+let penInit=false;
+function setupPen(){if(penInit)return;penInit=true;const c=$("#penCanvas"),ctx=c.getContext("2d");ctx.lineCap="round";ctx.strokeStyle="#12365f";let drawing=false;
+  const pos=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*(c.width/r.width),(e.clientY-r.top)*(c.height/r.height)]};
+  c.addEventListener("pointerdown",e=>{drawing=true;const[x,y]=pos(e);ctx.beginPath();ctx.moveTo(x,y);try{c.setPointerCapture(e.pointerId)}catch(_){}});
+  c.addEventListener("pointermove",e=>{if(!drawing)return;const[x,y]=pos(e);ctx.lineWidth=e.pressure?1+e.pressure*3:2.5;ctx.lineTo(x,y);ctx.stroke()});
+  c.addEventListener("pointerup",()=>drawing=false);
+  c.addEventListener("pointerleave",()=>drawing=false);
+}
+function printStudy(){
+  let html=`<h1 style="font-family:sans-serif;color:#0755a7">럭키가이 해외가자 · 10일 소리블록 교재</h1><p style="font-family:sans-serif;color:#555">패턴 · 발음 · 강세 리듬 · 단어 · 예문 · 따라쓰기</p>`;
+  CURRIC.forEach((c,i)=>{const words=DAY_WORDS[i]||[];
+    html+=`<div class="pbreak" style="font-family:sans-serif;font-size:14px">
+      <h2 style="color:#0755a7;margin-bottom:2px">Day ${i+1}. ${esc(c.p)}</h2>
+      <div style="font-size:16px">발음 ${esc(c.ipa)} &nbsp;·&nbsp; 리듬 <b>${c.p.replace(/~/g,"").trim().split(/\s+/).map(beatOf).join(" ")}</b></div>
+      <p><b>뜻</b> : ${esc(c.ko)}</p>
+      <p><b>외국인 실제 발음</b> : ${c.clip}</p>
+      <p><b>오늘의 단어</b></p><ul>${words.map(w=>`<li>${esc(w[0])} — ${esc(w[1])}</li>`).join("")}</ul>
+      <p><b>예문</b></p><ul>${c.ex.map(e=>`<li>${esc(e[0])} <span style="color:#666">/ ${esc(e[1])}</span></li>`).join("")}</ul>
+      <p><b>따라쓰기</b></p>
+      <div style="border-bottom:1px solid #bbb;height:34px"></div>
+      <div style="border-bottom:1px solid #bbb;height:34px"></div>
+      <div style="border-bottom:1px solid #bbb;height:34px"></div>
+    </div>`});
+  $("#printArea").innerHTML=html;window.print();
+}
+
+/* ---------- 일기장 ---------- */
+function pwHash(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0}return""+h}
+function diaryUnlocked(){return sessionStorage.getItem("diaryOpen")==="1"}
+let curDate=diaryToday(), calYM=null;
+function diaryToday(){return new Date().toISOString().slice(0,10)}
+function refreshDiaryLock(){
+  const set=hwGet("hw_pw",null);
+  $("#pwMsg").textContent=set?"비밀번호를 입력하세요.":"처음이에요! 사용할 비밀번호(숫자 4자리 이상)를 정하세요.";
+  const open=diaryUnlocked();
+  $("#diaryLock").style.display=open?"none":"block";
+  $("#diaryMain").style.display=open?"block":"none";
+  if(open){loadDiary(curDate);renderCal()}
+}
+function loadDiary(date){
+  curDate=date;$("#curDate").textContent=fmtDiaryDate(date);
+  const all=hwGet("hw_diary",{}),e=all[date]||{ko:"",en:""};
+  $("#diaryKo").value=e.ko||"";$("#diaryEn").textContent=e.en||"";$("#diaryEnPron").textContent="";
+  const koLines=(e.ko||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  const enLines=(e.en||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  if(enLines.length)renderDiaryStudy(enLines.map((en,i)=>[koLines[i]||"",en]));
+  else renderDiaryStudy([]);
+}
+function fmtDiaryDate(s){const wk=["일","월","화","수","목","금","토"][new Date(s).getDay()];const[y,m,d]=s.split("-");return `${y}년 ${+m}월 ${+d}일 (${wk})`}
+let diaryPairs=[];
+function renderDiaryStudy(pairs){
+  const info=$("#dInfo");diaryPairs=pairs||[];
+  if(!pairs||!pairs.length){$("#diarySentences").innerHTML="";if(info)info.innerHTML="";return}
+  renderLinePairs("#diarySentences",pairs,{showKo:true});
+  const allEn=pairs.map(p=>p[1]).join(" ");
+  if(info)info.innerHTML=`<div><b>품사</b> : ${posHtml(allEn)}</div><div style="margin-top:4px"><b>실제 발음</b><br>${realHtml(allEn)}</div>`;
+}
+function shiftDate(s,n){const d=new Date(s);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function renderCal(){
+  const base=calYM?new Date(calYM.y,calYM.m,1):new Date(curDate);
+  const y=base.getFullYear(),m=base.getMonth();calYM={y,m};
+  $("#calTitle").textContent=`${y}년 ${m+1}월`;
+  const all=hwGet("hw_diary",{}),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  let html=["일","월","화","수","목","금","토"].map(h=>`<div class="h">${h}</div>`).join("");
+  for(let i=0;i<first;i++)html+=`<div class="d other"></div>`;
+  for(let d=1;d<=days;d++){const ds=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;const has=all[ds]&&(all[ds].ko||all[ds].en);
+    html+=`<div class="d ${ds===diaryToday()?'today':''} ${ds===curDate?'sel':''} ${has?'has':''}" data-d="${ds}">${d}</div>`}
+  $("#calGrid").innerHTML=html;
+  $$("#calGrid .d[data-d]").forEach(el=>el.onclick=()=>{loadDiary(el.dataset.d);renderCal()});
+}
+document.addEventListener("click",e=>{
+  const t=e.target;if(!t.id)return;
+  if(t.id==="pwBtn"){const v=$("#pwInput").value.trim();if(v.length<4){toast("4자리 이상 입력");return}const set=hwGet("hw_pw",null);
+    if(!set){hwSet("hw_pw",pwHash(v));sessionStorage.setItem("diaryOpen","1");$("#pwInput").value="";toast("비밀번호 설정 완료 🔓");refreshDiaryLock()}
+    else if(pwHash(v)===set){sessionStorage.setItem("diaryOpen","1");$("#pwInput").value="";refreshDiaryLock()}else toast("비밀번호가 틀렸습니다.")}
+  if(t.id==="lockBtn"){sessionStorage.removeItem("diaryOpen");refreshDiaryLock()}
+  if(t.id==="prevDay")loadDiary(shiftDate(curDate,-1));
+  if(t.id==="nextDay")loadDiary(shiftDate(curDate,1));
+  if(t.id==="todayBtn"){calYM=null;loadDiary(diaryToday());renderCal()}
+  if(t.id==="calPrev"){calYM.m--;if(calYM.m<0){calYM.m=11;calYM.y--}renderCal()}
+  if(t.id==="calNext"){calYM.m++;if(calYM.m>11){calYM.m=0;calYM.y++}renderCal()}
+  if(t.id==="diarySave"){const all=hwGet("hw_diary",{});all[curDate]={ko:$("#diaryKo").value,en:$("#diaryEn").textContent};hwSet("hw_diary",all);toast("일기 저장됨 💾");renderCal()}
+  if(t.id==="diaryTrans")diaryTranslate();
+  if(t.id==="calToggle"){const box=$("#calBox");const show=box.style.display==="none";box.style.display=show?"block":"none";t.textContent=show?"➖ 접기":"➕ 펼치기";if(show)renderCal()}
+  if(t.id==="dictClose"||t.id==="dictModal")$("#dictModal").classList.remove("open");
+  if(t.id==="dPlaySeq")playSeqSel("#dSoundBlocks");
+  if(t.id==="dPlayLines")playLinesSeq("#diarySentences");
+  if(t.id==="playInterpLines")playLinesSeq("#interpLines");
+  if(t.id==="penPad"){const c=$("#penCanvas");const show=c.style.display==="none";c.style.display=show?"block":"none";t.textContent=show?"✍️ 패드 닫기":"✍️ 손글씨 패드";if(show)setupPen()}
+});
+async function diaryTranslate(){
+  const koRaw=$("#diaryKo").value;
+  const lines=koRaw.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  if(!lines.length){toast("한국어 일기를 먼저 쓰세요.");return}
+  if(typeof confirmExternalSend==="function" && !confirmExternalSend())return;
+  $("#diaryEn").textContent="한 줄씩 통역 중...";
+  const pairs=[];
+  for(const line of lines){
+    let en=await translateText(line,"ko|en");
+    pairs.push([line,en||"(통역 실패)"]);
+  }
+  $("#diaryEn").textContent=pairs.map(p=>p[1]).join("\n");
+  renderDiaryStudy(pairs);
+}
+/* 일기 좌우 스크롤 동기화 (줄 정렬 유지) */
+(function(){const dko=$("#diaryKo"),dew=$("#diaryEnWrap");if(dko&&dew){let lock=false;
+ dko.addEventListener("scroll",()=>{if(lock)return;lock=true;dew.scrollTop=dko.scrollTop;lock=false});
+ dew.addEventListener("scroll",()=>{if(lock)return;lock=true;dko.scrollTop=dew.scrollTop;lock=false});}})();
+</script>
+</body>
+</html>
