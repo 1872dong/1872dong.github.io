@@ -3,6 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>데일리 체크</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2F9E77">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="데일리">
+<link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADX0lEQVR42u3d3W1TURCF0XuO0k9oCTcRSsBNhJZwRckzEoj4796Zfdb3hoREiFe2xo6VjK1Ar+9vH5vadzmdx9EfwwBYScAHxErCPSBWEu4BspJgT5iV9GLAAFlJaz1hVtJaD5CVtNYTZiWt9YRZSagnzEpCPWFWEuoJs5JQT5iVhHrCrCTU06dJSU3rrKSVnjArCbWTQ/knh3VW15WeMCsJtZNDuSeHdVb3lbbQyn9SKLUH7dxQwtlhoeXkkEqDdm4o5eyw0HJySEBLOzTcz7LQEtAS0BLQAloCWgJaAloCWkBLQEtAS0BLQAtoCWgJaAloCWgBLQEtAS0BLQGt7F58Ctbu9/eff/z5268frf8/fnISyH+tK2wnB8w3/x2g1QJzZ9RAwxwV0DBHfREADbOFFsxAC2agdXTdXo8G2jpbaK2BueN3C4GGOQbztnlzEswhkIGGOQqykwPmOMxAwxyFGWg3c1xAewIItGAGWjADLZiBhnlRzEAv1AqYgV5knVfBDDTMQAtmoAUz0DDDfH0v6Ri6Pbgw31fMD2tM+OGDMDs5vgyh+jvTvHMO6KshVEXju4BAxywhzEDfjaEKapiBjllqmIH2RAxmoCui9vIc0E99YPdEDTPQMUsNM9C7PsjPRA0z0DGoYQb6pge94k0NM9AlYD8CNcxAlzpD7gHpzUZAx6D2XUCgY1DDDHQMapiBjkENM9AxqGEGerknijAD3QK115qBttQwA10VNcxAL48aZqBjgMEMdAw0mIGOQQ0z0J6sCeiKqH2RAB2DGmagY1DDDHQMapiBjkENM9AxqGEG2s2thxXzO1b2rPsvJgJacnJIQEtAS0ALaAloCWgJaAloAS0BLQEtAS2gJaAloCWgJaAFtAS0BLT0JNCX03n4NCihy+k8LLScHBLQ0l6g3dFKuJ8ttJwcUgvQzg51PzcstJwcUhvQzg51PjcstPJPDiutruv8z4WGWh0xOzmUf3JYaXVd5/8uNNTqhNnJoXVODiutbuv85YWGWh0wX3VyQK3qmK++oaFWZcw3PSmEWlUx3wQaalXFfDNoqFUR87Zt20NQvr6/fXgYdCTkuxfaWqsa5octtLVWlTGc1T9AwXzoQltrHTl6u60p3BDv8e8cch7ADXEUaMABflafx6a44WM5Hr4AAAAASUVORK5CYII=">
+<script>
+/* 홈 화면 설치용 매니페스트(단일 파일 유지 위해 런타임 생성) */
+(function(){
+  try{
+    var manifest = {
+      name: "데일리 체크",
+      short_name: "데일리",
+      display: "standalone",
+      background_color: "#F2F5F4",
+      theme_color: "#2F9E77",
+      icons: [
+        { src: "data:image/png;base64,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", sizes: "512x512", type: "image/png", purpose: "any maskable" },
+        { src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADX0lEQVR42u3d3W1TURCF0XuO0k9oCTcRSsBNhJZwRckzEoj4796Zfdb3hoREiFe2xo6VjK1Ar+9vH5vadzmdx9EfwwBYScAHxErCPSBWEu4BspJgT5iV9GLAAFlJaz1hVtJaD5CVtNYTZiWt9YRZSagnzEpCPWFWEuoJs5JQT5iVhHrCrCTU06dJSU3rrKSVnjArCbWTQ/knh3VW15WeMCsJtZNDuSeHdVb3lbbQyn9SKLUH7dxQwtlhoeXkkEqDdm4o5eyw0HJySEBLOzTcz7LQEtAS0BLQAloCWgJaAloCWkBLQEtAS0BLQAtoCWgJaAloCWgBLQEtAS0BLQGt7F58Ctbu9/eff/z5268frf8/fnISyH+tK2wnB8w3/x2g1QJzZ9RAwxwV0DBHfREADbOFFsxAC2agdXTdXo8G2jpbaK2BueN3C4GGOQbztnlzEswhkIGGOQqykwPmOMxAwxyFGWg3c1xAewIItGAGWjADLZiBhnlRzEAv1AqYgV5knVfBDDTMQAtmoAUz0DDDfH0v6Ri6Pbgw31fMD2tM+OGDMDs5vgyh+jvTvHMO6KshVEXju4BAxywhzEDfjaEKapiBjllqmIH2RAxmoCui9vIc0E99YPdEDTPQMUsNM9C7PsjPRA0z0DGoYQb6pge94k0NM9AlYD8CNcxAlzpD7gHpzUZAx6D2XUCgY1DDDHQMapiBjkENM9AxqGEGerknijAD3QK115qBttQwA10VNcxAL48aZqBjgMEMdAw0mIGOQQ0z0J6sCeiKqH2RAB2DGmagY1DDDHQMapiBjkENM9AxqGEG2s2thxXzO1b2rPsvJgJacnJIQEtAS0ALaAloCWgJaAloAS0BLQEtAS2gJaAloCWgJaAFtAS0BLT0JNCX03n4NCihy+k8LLScHBLQ0l6g3dFKuJ8ttJwcUgvQzg51PzcstJwcUhvQzg51PjcstPJPDiutruv8z4WGWh0xOzmUf3JYaXVd5/8uNNTqhNnJoXVODiutbuv85YWGWh0wX3VyQK3qmK++oaFWZcw3PSmEWlUx3wQaalXFfDNoqFUR87Zt20NQvr6/fXgYdCTkuxfaWqsa5octtLVWlTGc1T9AwXzoQltrHTl6u60p3BDv8e8cch7ADXEUaMABflafx6a44WM5Hr4AAAAASUVORK5CYII=", sizes: "180x180", type: "image/png", purpose: "any" }
+      ]
+    };
+    var blob = new Blob([JSON.stringify(manifest)], {type:"application/json"});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = url;
+    document.head.appendChild(link);
+  }catch(e){ /* 매니페스트 실패해도 아이콘 링크로 대체됨 */ }
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -1027,7 +1059,6 @@ async function fbApplyRemote(remote){
   const mergedStr = JSON.stringify(merged);
   if(mergedStr !== JSON.stringify(localBefore)) await applyStore(merged);    // 내 화면 갱신
   if(mergedStr !== JSON.stringify(fbRemoteCache)) await fbWrite(merged);     // 원격도 병합본으로 맞춤(둘이 같아지면 멈춤)
-  if(!applyingRemote && dedupeToday()){ await saveToday(); render(); }        // 기기 간 중복 정리
 }
 
 async function fbWrite(storeObj){
@@ -1177,37 +1208,7 @@ async function saveToday(){
   await touchMeta();
 }
 
-/* ---------- 중복 자동 삭제 ----------
-   해야 할 일(미완료) 중 내용+분류가 같은 항목이 둘 이상이면 하나만 남긴다.
-   진행률이 높은 것 우선, 같으면 먼저 만든 것 유지. 완료 항목은 건드리지 않음.
-   삭제분은 saveToday가 자동으로 tombstone 처리 → 다른 기기에서도 지워지고 되살아나지 않음. */
-function normTaskText(s){ return String(s||'').trim().replace(/\s+/g,' ').toLowerCase(); }
-function dedupeToday(){
-  const tasks = state.today.tasks || [];
-  const seen = {};
-  const removeIds = new Set();
-  tasks.forEach(t=>{
-    if(t.done) return;                        // 완료 항목은 제외
-    const key = normTaskText(t.text) + '|' + taskCat(t);
-    if(!normTaskText(t.text)) return;         // 빈 내용은 무시
-    const kept = seen[key];
-    if(!kept){ seen[key] = t; return; }
-    const keptP = computeProgress(kept), curP = computeProgress(t);
-    let loser;
-    if(curP > keptP){ loser = kept; seen[key] = t; }
-    else if(curP < keptP){ loser = t; }
-    else {
-      const keptC = kept.createdAt||0, curC = t.createdAt||0;
-      if(curC && keptC && curC < keptC){ loser = kept; seen[key] = t; }
-      else loser = t;
-    }
-    removeIds.add(loser.id);
-  });
-  if(!removeIds.size) return false;
-  state.today.tasks = tasks.filter(t=> !removeIds.has(t.id));
-  return true;
-}
-async function dedupeAndSave(){ if(dedupeToday()){ await saveToday(); return true; } return false; }
+/* 자동 중복삭제 기능은 데이터 손실 사고로 완전히 제거됨(2026-09). 자동 삭제류 기능은 넣지 않음. */
 
 let hourlySaveTimer = null;
 async function saveHourlySlot(time, text, announce){
@@ -1477,7 +1478,6 @@ async function addTask(text, startDate, dueDate, alarmTime, category, note){
     progressMode: (startDate && dueDate) ? 'auto' : 'manual'
   });
   if(alarmTime) await ensureNotifyPermission();
-  dedupeToday();
   await saveToday();
   state.newStart=null; state.newDue=null; state.newAlarm=null;
   state.newText=''; state.newNote='';
@@ -1520,8 +1520,12 @@ function parseApprovalPdf(text, fileName){
   if(!flat) throw new Error('글자를 읽을 수 없는 PDF입니다.');
 
   let category=null;
-  if(/금형\s*수리\s*의뢰서/.test(flat) || /\[수리\s*의뢰\]/.test(flat)) category='repair';
-  else if(/금형\s*제작\s*의뢰서/.test(flat) || /\[제작\s*의뢰\]/.test(flat)) category='mold';
+  if(/금형\s*수리\s*의뢰서/.test(flat) || /\[수리\s*의뢰\]/.test(flat) || /수리\s*의뢰서/.test(flat)) category='repair';
+  else if(/금형\s*제작\s*의뢰서/.test(flat) || /\[제작\s*의뢰\]/.test(flat) || /제작\s*의뢰서/.test(flat)) category='mold';
+  if(!category && fileName){
+    if(/수리/.test(fileName)) category='repair';
+    else if(/제작/.test(fileName)) category='mold';
+  }
   if(!category) throw new Error('금형 수리/제작 의뢰서 구분을 찾지 못했습니다.');
 
   const docMatch=flat.match(/문서\s*번호\s+([A-Z]{2}-\d{3}-\d{2}-\d{6}-\d{2})/i);
@@ -1538,7 +1542,14 @@ function parseApprovalPdf(text, fileName){
     dm=flat.match(/\b(\d{2})(\d{2})(\d{2})\s*까지/);
     if(dm) dueDate=pdfDate('20'+dm[1],dm[2],dm[3]);
   }
-  if(!dueDate) throw new Error('공급기한(납기일)을 찾지 못했습니다.');
+  // 공급기한이 ASAP/긴급 등 날짜가 아니면: 알람 없이 비고에 '긴급'으로 등록
+  let urgent=false;
+  if(!dueDate){
+    const dueField=flat.match(/공\s*급\s*기\s*한\s+(.{0,40})/);
+    const asapRe=/(A[.\s]*S[.\s]*A[.\s]*P|긴급|즉시|가급적\s*빨리|최대한\s*빨리|빠른\s*시일|조속|urgent)/i;
+    if(dueField && asapRe.test(dueField[1])) urgent=true;
+  }
+  if(!dueDate && !urgent) throw new Error('공급기한(납기일)을 찾지 못했습니다.');
 
   const lines=raw.split(/\r?\n/).map(x=>x.replace(/\s+/g,' ').trim()).filter(Boolean);
   let titleLine=lines.find(x=>/^\[(?:수리|제작)\s*의뢰\]/.test(x)) || '';
@@ -1559,7 +1570,7 @@ function parseApprovalPdf(text, fileName){
     if(!new RegExp('\\b'+code.replace('-','\\-')+'\\b','i').test(title)) title=code+' '+title;
   }
   title=title.replace(/\s+/g,' ').trim().slice(0,120);
-  return {category,title,dueDate,documentNo,fileName};
+  return {category,title,dueDate,documentNo,fileName,urgent};
 }
 
 async function extractPdfText(file){
@@ -1603,7 +1614,7 @@ async function importApprovalPdfs(fileList){
         category:parsed.category, startDate:null, dueDate:parsed.dueDate,
         approvalDate:null, sourceFile:parsed.fileName, documentNo:parsed.documentNo,
         alarmTime:null, alarmFired:false, completedAt:null,
-        note:'PDF 자동입력 · '+parsed.fileName,
+        note:(parsed.urgent?'긴급 · ':'')+'PDF 자동입력 · '+parsed.fileName,
         progress:0, progressMode:'manual'
       });
       added.push(parsed);
@@ -1611,7 +1622,7 @@ async function importApprovalPdfs(fileList){
       failed.push(`${file.name}: ${e && e.message ? e.message : '인식 실패'}`);
     }
   }
-  if(added.length){ dedupeToday(); await saveToday(); }
+  if(added.length){ await saveToday(); }
   state.pdfImportBusy=false;
   const parts=[];
   if(added.length) parts.push(`자동 입력 ${added.length}건`);
@@ -2770,7 +2781,6 @@ window.addEventListener('focus', pollSync);
   await migrateArchiveOnce();
   await loadArchive();
   await sweepOutstandingIntoToday();
-  await dedupeAndSave();
   await render();
   checkAlarms();
   fbInit();   // Firebase 설정돼 있으면 실시간 동기화, 아니면 기존 폴더 방식으로 자동 전환
